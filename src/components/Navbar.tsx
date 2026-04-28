@@ -41,7 +41,7 @@ export function Navbar() {
               Adopt
             </NavLink>
             <NavLink
-              to="/article"
+              to="/article/when-wealth-isnt-enough"
               className={({ isActive }) =>
                 `${navLinkBase} ${isActive ? 'bg-white/10 text-white' : ''}`
               }

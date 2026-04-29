@@ -1,7 +1,10 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { Container } from '../components/Container'
+import { getAllArticles } from '../lib/data/articles'
+import { getAllDogs } from '../lib/data/dogs'
 import { animalPhotoUrl } from '../lib/photos'
+import type { Dog } from '../lib/types'
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
@@ -21,7 +24,7 @@ function PrimaryLinkButton({
 }) {
   return (
     <Link
-      to={to}
+      href={to}
       className="inline-flex items-center justify-center rounded-2xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 shadow-sm shadow-sky-400/20 transition hover:bg-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/70"
     >
       {children}
@@ -38,7 +41,7 @@ function SecondaryLinkButton({
 }) {
   return (
     <Link
-      to={to}
+      href={to}
       className="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
     >
       {children}
@@ -71,50 +74,76 @@ function SectionHeading({
 }
 
 export function HomePage() {
+  const dogs = getAllDogs()
+  const articles = getAllArticles()
+  const locations = new Set(dogs.map((d) => d.location)).size
+
+  const featuredDogs = dogs.slice(0, 8)
+  const latestArticles = articles.slice(0, 3)
+
   return (
     <Container>
       <section className="grid items-center gap-10 lg:grid-cols-2">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200/80">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            Responsible pet ownership starts here
+            Pet safety training + rescue directory
           </div>
 
           <h1 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
             Pet Safety Training
           </h1>
           <p className="mt-4 text-pretty text-base leading-relaxed text-slate-200/75">
-            Real-world training for everyday pet owners—learn safe handling, home
-            hazard prevention, and simple emergency readiness. Build confidence,
-            reduce risk, and help pets live healthier, safer lives.
+            A modern safety-first hub for pet owners and adopters. Learn practical
+            routines, browse real rescue-style profiles, and read stories that
+            keep awareness high and outcomes better.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <PrimaryLinkButton to="/adopt">Browse pets for adoption</PrimaryLinkButton>
-            <SecondaryLinkButton to="/article/when-wealth-isnt-enough">
+            <PrimaryLinkButton to="/adopt">Browse 590 rescue dogs</PrimaryLinkButton>
+            <SecondaryLinkButton to="/articles/when-wealth-isnt-enough">
               Read the featured article
             </SecondaryLinkButton>
           </div>
 
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <Stat label="Modules" value="8 core skills" />
-            <Stat label="Formats" value="In-person + online" />
-            <Stat label="Level" value="Beginner-friendly" />
+            <Stat label="Rescue profiles" value={`${dogs.length} dogs`} />
+            <Stat label="Locations covered" value={`${locations}+ cities`} />
+            <Stat label="Articles" value={`${articles.length} stories`} />
           </div>
 
-          <div className="mt-6 grid gap-2 text-sm text-slate-200/70 sm:grid-cols-2">
-            {[
-              'Safer walks & leash handling',
-              'Hydration & heat safety',
-              'Home hazard checklist',
-              'Basics of first response',
-            ].map((x) => (
-              <div key={x} className="flex items-start gap-2">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sky-400" />
-                <span>{x}</span>
-              </div>
-            ))}
-          </div>
+          <form
+            action="/adopt"
+            method="get"
+            className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4"
+          >
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <input
+                name="q"
+                placeholder="Search dogs by name, breed, or location…"
+                className="w-full flex-1 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
+              />
+              <button
+                type="submit"
+                className="rounded-2xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
+              >
+                Search
+              </button>
+            </div>
+            <div className="mt-3 grid gap-2 text-xs text-slate-200/70 sm:grid-cols-2">
+              {[
+                'Safety-first adoption guidance',
+                'Clear traits & compatibility flags',
+                'Practical handling + emergency basics',
+                'Shareable filters and links',
+              ].map((x) => (
+                <div key={x} className="flex items-start gap-2">
+                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-emerald-400" />
+                  <span>{x}</span>
+                </div>
+              ))}
+            </div>
+          </form>
         </div>
 
         <div className="relative">
@@ -178,6 +207,78 @@ export function HomePage() {
             </p>
           </div>
         ))}
+      </section>
+
+      <section className="mt-16">
+        <SectionHeading
+          eyebrow="Rescue directory"
+          title="Featured dogs ready for a safer home"
+          desc="Browse profiles with realistic details. Each dog page is shareable and includes compatibility flags."
+        />
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {featuredDogs.map((dog) => (
+            <FeaturedDogCard key={dog.id} dog={dog} />
+          ))}
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <PrimaryLinkButton to="/adopt">Explore all dogs</PrimaryLinkButton>
+          <SecondaryLinkButton to="/articles">Read all articles</SecondaryLinkButton>
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <SectionHeading
+          eyebrow="Latest"
+          title="New articles and safety stories"
+          desc="Short, clear pieces designed to raise awareness and improve daily care."
+        />
+        <div className="mt-6 grid gap-5 lg:grid-cols-3">
+          {latestArticles.map((a) => (
+            <article
+              key={a.id}
+              className="overflow-hidden rounded-3xl border border-white/10 bg-white/5"
+            >
+              <div className="relative">
+                <img
+                  src={animalPhotoUrl(a.coverTopic, a.coverSeed, 1200, 800)}
+                  alt=""
+                  className="h-44 w-full object-cover"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950/80 to-transparent" />
+              </div>
+              <div className="p-5">
+                <div className="text-xs text-slate-300/60">
+                  {new Date(a.publishedAt).toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'short',
+                    day: '2-digit',
+                  })}
+                </div>
+                <h3 className="mt-2 text-base font-semibold text-white">
+                  <Link
+                    href={`/articles/${a.slug}`}
+                    className="hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
+                  >
+                    {a.title}
+                  </Link>
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-200/70">
+                  {a.excerpt}
+                </p>
+                <div className="mt-4">
+                  <Link
+                    href={`/articles/${a.slug}`}
+                    className="text-sm font-semibold text-sky-300 hover:text-sky-200"
+                  >
+                    Read more →
+                  </Link>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="mt-16">
@@ -390,7 +491,7 @@ export function HomePage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <PrimaryLinkButton to="/adopt">Explore adoptions</PrimaryLinkButton>
-              <SecondaryLinkButton to="/article/when-wealth-isnt-enough">
+              <SecondaryLinkButton to="/articles/when-wealth-isnt-enough">
                 Read the article
               </SecondaryLinkButton>
             </div>
@@ -410,6 +511,45 @@ export function HomePage() {
         </div>
       </section>
     </Container>
+  )
+}
+
+function FeaturedDogCard({ dog }: { dog: Dog }) {
+  return (
+    <article className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+      <div className="relative">
+        <img
+          src={animalPhotoUrl(dog.photoTopic, dog.photoSeed, 1200, 900)}
+          alt={`${dog.name}`}
+          className="h-40 w-full object-cover"
+          loading="lazy"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 to-transparent" />
+        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+          <div className="text-base font-semibold text-white">{dog.name}</div>
+          <div className="rounded-full bg-white/10 px-3 py-1 text-xs text-slate-100/90">
+            {dog.size}
+          </div>
+        </div>
+      </div>
+      <div className="p-5">
+        <div className="text-xs text-slate-300/60">
+          {dog.breed} · {dog.location}
+        </div>
+        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-200/70">
+          {dog.description}
+        </p>
+        <div className="mt-4 flex gap-3">
+          <Link
+            href={`/dogs/${dog.id}`}
+            className="flex-1 rounded-2xl bg-sky-400 px-4 py-2.5 text-center text-sm font-semibold text-slate-950 transition hover:bg-sky-300"
+          >
+            View profile
+          </Link>
+        </div>
+      </div>
+    </article>
   )
 }
 

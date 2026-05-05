@@ -125,7 +125,7 @@ export const ARTICLES: Article[] = [
     excerpt:
       'A summer routine turned dangerous fast—and the quick decisions that made the difference.',
     author: AUTHOR,
-    publishedAt: '2026-06-21T09:00:00.000Z',
+    publishedAt: '2026-04-21T09:00:00.000Z',
     coverTopic: 'dog',
     coverSeed: 2104,
     content: [

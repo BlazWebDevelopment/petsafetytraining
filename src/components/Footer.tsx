@@ -69,9 +69,6 @@ export function Footer() {
 
           <div>
             <div className="eyebrow-ink">Subscribe by post</div>
-            <p className="mt-3 text-sm text-ink-soft">
-              For demonstration purposes — no email is collected.
-            </p>
             <form
               onSubmit={(e) => e.preventDefault()}
               className="mt-3 flex gap-2"
@@ -89,8 +86,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-ink/60 py-4 text-center text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
-          © {year} Pet Safety Training · Photos loaded from a public source for
-          demo purposes
+          © {year} Pet Safety Training · Photos loaded from a public source.
         </div>
       </Container>
     </footer>

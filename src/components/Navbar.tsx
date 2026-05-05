@@ -71,9 +71,7 @@ export function Navbar() {
               <div className="font-display text-2xl font-black tracking-tight text-ink sm:text-[28px]">
                 Pet Safety Training
               </div>
-              <div className="mt-1 text-[10px] font-semibold uppercase tracking-editorial text-ink-mute">
-                The Modern Old-School Edition
-              </div>
+              
             </div>
           </Link>
 

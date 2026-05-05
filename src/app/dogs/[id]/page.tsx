@@ -159,8 +159,6 @@ export default async function Page({
               </div>
 
               <p className="mt-5 border-t border-ink/40 pt-4 text-[11px] leading-relaxed text-ink-mute">
-                Profiles are illustrative for the demonstration site. Replies
-                are sent to{' '}
                 <span className="font-semibold text-ink">
                   adoptions@petsafetytraining.com
                 </span>

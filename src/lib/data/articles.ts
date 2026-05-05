@@ -26,7 +26,7 @@ export const ARTICLES: Article[] = [
     excerpt:
       'A small pygmy hippopotamus, born and kept his entire life inside a Neuralink research facility, has died during an extended brain-interface testing programme. He never lived anywhere else.',
     author: AUTHOR,
-    publishedAt: '2026-08-01T09:00:00.000Z',
+    publishedAt: '2026-05-05T09:00:00.000Z',
     coverTopic: 'pet',
     coverSeed: 2116,
     content: [

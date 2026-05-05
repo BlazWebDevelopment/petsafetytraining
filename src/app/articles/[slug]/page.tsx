@@ -75,7 +75,7 @@ export default async function Page({
             </div>
             <figcaption className="mt-2 text-center text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
               {isMikolasStory
-                ? 'Plate I · Mikolas, ambassador for his species.'
+                ? 'Plate I · Mikolas, inside the Neuralink research facility.'
                 : isRexStory
                   ? 'Plate I · A reminder that wealth is not the same as care.'
                   : 'Plate I · A photographic study.'}
@@ -124,8 +124,9 @@ export default async function Page({
                     />
                   </div>
                   <figcaption className="mt-3 text-center text-[12px] font-semibold uppercase tracking-editorial text-ink-mute">
-                    Mikolas — the pygmy hippo who served as an ambassador for
-                    his species at the zoo&rsquo;s educational program.
+                    Mikolas — &ldquo;Subject M-04&rdquo; in internal documentation,
+                    photographed inside the Neuralink research facility where he
+                    spent his entire life.
                   </figcaption>
                 </div>
               </figure>

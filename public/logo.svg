@@ -1,29 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="160" viewBox="0 0 480 160">
-  <defs>
-    <linearGradient id="pst-g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#22c55e" />
-      <stop offset="0.5" stop-color="#38bdf8" />
-      <stop offset="1" stop-color="#a78bfa" />
-    </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.35" />
-    </filter>
-  </defs>
-  <rect width="480" height="160" rx="28" fill="#020617" />
-  <g transform="translate(32 32)" filter="url(#shadow)">
-    <circle cx="48" cy="48" r="44" fill="url(#pst-g)" />
-    <path
-      d="M41.6 36.8c-2.2-2.8-6.3-2.6-8 .3-1.2 2.1-.6 4.8 1.4 6.2 1.7 1.2 4 .9 5.7-.2 1.2-1 1.9-2.6.9-4.2Zm17.1.3c-1.7-3-5.8-3.1-8-.3-1.1 1.6-.4 3.1.9 4.2 1.7 1.3 3.9 1.4 5.7.2 2-1.4 2.6-4.1 1.4-6.2ZM39 47.7c0-3.7 3.1-6.7 7-6.7s7 3 7 6.7c0 5.4-5.4 9.5-7 10.4-1.6-.9-7-5-7-10.4Z"
-      fill="rgba(2,6,23,0.92)"
-    />
-  </g>
-  <g transform="translate(152 52)">
-    <text x="0" y="0" font-family="Segoe UI, system-ui, -apple-system, Arial" font-size="34" font-weight="700" fill="#ffffff">
-      Pet Safety Training
-    </text>
-    <text x="0" y="36" font-family="Segoe UI, system-ui, -apple-system, Arial" font-size="16" font-weight="500" fill="rgba(226,232,240,0.75)">
-      safer pets, better homes
-    </text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#f3ead4" />
 
+  <rect x="24" y="24" width="464" height="464" fill="none" stroke="#1a1410" stroke-width="20" />
+  <rect x="56" y="56" width="400" height="400" fill="none" stroke="#1a1410" stroke-width="6" />
+
+  <text
+    x="256"
+    y="240"
+    text-anchor="middle"
+    font-family="Georgia, 'Playfair Display', 'Times New Roman', serif"
+    font-weight="900"
+    font-size="160"
+    fill="#1a1410"
+    letter-spacing="6"
+  >PST</text>
+
+  <line x1="120" y1="290" x2="392" y2="290" stroke="#1a1410" stroke-width="6" />
+
+  <text
+    x="256"
+    y="360"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="42"
+    fill="#8a1c1c"
+    letter-spacing="14"
+  >EST · MMXXVI</text>
+
+  <text
+    x="256"
+    y="420"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-weight="500"
+    font-size="26"
+    fill="#3a2f25"
+    letter-spacing="2"
+  >Pet Safety Training</text>
+</svg>

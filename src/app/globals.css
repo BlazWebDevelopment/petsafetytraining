@@ -13,17 +13,113 @@
   }
 
   body {
-    @apply bg-slate-950 text-slate-100 antialiased;
-    font-family:
-      ui-sans-serif,
-      system-ui,
-      -apple-system,
-      Segoe UI,
-      Roboto,
-      Helvetica,
-      Arial,
-      "Apple Color Emoji",
-      "Segoe UI Emoji";
+    @apply bg-paper text-ink antialiased;
+    font-family: var(--font-serif), Georgia, 'Times New Roman', serif;
+    background-color: #f3ead4;
+    background-image:
+      radial-gradient(rgba(60, 40, 20, 0.07) 1px, transparent 1px),
+      radial-gradient(rgba(60, 40, 20, 0.04) 1px, transparent 1px);
+    background-size:
+      4px 4px,
+      9px 9px;
+    background-position:
+      0 0,
+      2px 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-display), Georgia, 'Times New Roman', serif;
+    color: theme('colors.ink');
+  }
+
+  *::selection {
+    background: theme('colors.ink');
+    color: theme('colors.paper');
   }
 }
 
+@layer components {
+  .eyebrow {
+    @apply text-[11px] font-bold uppercase tracking-editorial text-accent;
+  }
+
+  .eyebrow-ink {
+    @apply text-[11px] font-bold uppercase tracking-editorial text-ink;
+  }
+
+  .rule {
+    @apply h-px w-full bg-ink/80;
+  }
+
+  .double-rule {
+    @apply relative h-[6px] w-full;
+    border-top: 1px solid theme('colors.ink');
+    border-bottom: 1px solid theme('colors.ink');
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1 border border-ink bg-paper px-2 py-[2px] text-[10px] font-bold uppercase tracking-editorial text-ink;
+  }
+
+  .card {
+    @apply border border-ink bg-paper-2/60;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-ink px-5 py-2.5 text-xs font-bold uppercase tracking-editorial text-paper transition-colors hover:bg-accent hover:border-accent focus:outline-none focus-visible:bg-accent focus-visible:border-accent;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-paper px-5 py-2.5 text-xs font-bold uppercase tracking-editorial text-ink transition-colors hover:bg-ink hover:text-paper focus:outline-none focus-visible:bg-ink focus-visible:text-paper;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-accent bg-accent px-5 py-2.5 text-xs font-bold uppercase tracking-editorial text-paper transition-colors hover:bg-ink hover:border-ink focus:outline-none focus-visible:bg-ink focus-visible:border-ink;
+  }
+
+  .input-field {
+    @apply w-full border border-ink bg-paper px-3 py-2.5 text-sm text-ink placeholder:text-ink-mute focus:outline-none focus:bg-paper focus:ring-0;
+    font-family: var(--font-serif), Georgia, serif;
+  }
+
+  .select-field {
+    @apply w-full border border-ink bg-paper px-3 py-2.5 text-sm text-ink focus:outline-none;
+    font-family: var(--font-serif), Georgia, serif;
+  }
+
+  .link-underline {
+    @apply text-ink underline decoration-ink/40 underline-offset-[3px] transition-colors hover:text-accent hover:decoration-accent;
+  }
+
+  .ornament {
+    @apply mx-auto block w-full max-w-[120px] text-center text-ink;
+  }
+
+  .drop-cap > p:first-of-type::first-letter,
+  p.drop-cap::first-letter {
+    float: left;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 4.5rem;
+    line-height: 0.85;
+    margin: 0.25rem 0.6rem 0 0;
+    color: theme('colors.accent');
+    font-weight: 700;
+  }
+
+  .col-rule > * + * {
+    border-left: 1px solid theme('colors.ink');
+  }
+
+  .photo-frame {
+    @apply border border-ink bg-paper p-2;
+  }
+
+  .photo-frame img {
+    @apply block w-full border border-ink/70 bg-paper-2;
+    filter: grayscale(0.15) contrast(1.05) sepia(0.05);
+  }
+}

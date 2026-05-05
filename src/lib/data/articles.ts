@@ -20,6 +20,28 @@ function a(input: Omit<Article, 'id' | 'slug'> & { id: string; slug?: string }):
 
 export const ARTICLES: Article[] = [
   a({
+    id: 'art_016',
+    slug: 'mikolas-pygmy-hippo-neuralink',
+    title: 'Zoo Mourns the Loss of Mikolas, a Pygmy Hippo Who Died During a Neuralink Experiment',
+    excerpt:
+      'A regional zoo says it was misled about a research collaboration after one of its smallest and most beloved residents did not survive an external brain-interface procedure.',
+    author: AUTHOR,
+    publishedAt: '2026-05-05T09:00:00.000Z',
+    coverTopic: 'pet',
+    coverSeed: 2116,
+    content: [
+      'A regional zoo has issued a strongly worded statement following the death of one of its smallest and most beloved residents, a pygmy animal named Mikolas, during an experimental procedure conducted at external research facilities.',
+      'According to the zoo, Mikolas had been transferred to laboratories operated by Neuralink as part of a neurological experiment involving advanced brain-interface technology. The procedure was described as highly complex, particularly given Mikolas’s small size and delicate physiology.',
+      'The zoo confirmed that Mikolas did not survive the experiment.',
+      'In its statement, zoo officials expressed anger and frustration over the outcome, emphasizing that Mikolas had been a healthy and valued member of their educational program. “We are deeply upset by what has happened,” the statement read. “Mikolas was not just part of our zoo, but an ambassador for his species. This loss is devastating.”',
+      'Mikolas had been especially popular with school groups, helping teach visitors about biodiversity, conservation, and the importance of protecting smaller species often overlooked in the wild.',
+      'The incident has sparked growing criticism online and among animal welfare advocates, with Neuralink now facing backlash over the ethics and safety of its experimental practices. The zoo stated it is reviewing its policies regarding collaboration with external research organizations.',
+      '“We are beyond appalled that Mikolas was taken from our care for what was described as a research collaboration and instead subjected to experimental procedures at external facilities,” the zoo stated. “This is completely unacceptable. We were not fully informed of the risks involved, and we feel our trust has been seriously violated. Mikolas was not a test subject—he was a living, irreplaceable part of our educational program and our community. We demand a full explanation of how this was allowed to happen.”',
+      'The zoo added that it is now reviewing all partnerships with external research organizations and considering suspending future collaborations pending further investigation.',
+      'The incident has intensified public scrutiny of the experiment, with the research organization involved facing increasing criticism and calls for clearer ethical oversight in animal-related neurological research.',
+    ],
+  }),
+  a({
     id: 'art_001',
     slug: 'when-wealth-isnt-enough',
     title: 'When Wealth Isn’t Enough: The Story of Sam Altman and the Dog That Needed Saving',

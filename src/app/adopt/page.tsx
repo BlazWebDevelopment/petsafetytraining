@@ -93,19 +93,21 @@ export default async function Page({
   return (
     <Layout>
       <Container>
-        <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Rescue dogs
-            </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-200/70">
-              Browse our rescue directory. Use search and filters to find the right
-              match.
-            </p>
+        <header className="border-2 border-ink bg-paper p-6 sm:p-8">
+          <div className="flex items-baseline justify-between gap-3 border-b border-ink pb-3">
+            <div className="eyebrow">Section · Classifieds</div>
+            <div className="text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+              {filtered.length} results · page {safePage} of {totalPages}
+            </div>
           </div>
-          <div className="text-xs text-slate-300/60">
-            {filtered.length} results · page {safePage} / {totalPages}
-          </div>
+          <h1 className="mt-4 font-display text-4xl font-black tracking-tight text-ink sm:text-5xl">
+            The Rescue Directory
+          </h1>
+          <p className="mt-3 max-w-3xl text-base leading-relaxed text-ink-soft">
+            Hand-curated profiles of dogs awaiting safer homes. Use the search
+            and filters below — every entry is shareable, with compatibility
+            notes and a contact line.
+          </p>
         </header>
 
         <DirectoryControls
@@ -117,11 +119,27 @@ export default async function Page({
           }}
         />
 
-        <section className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {slice.map((dog) => (
-            <DogCard key={dog.id} dog={dog} />
-          ))}
-        </section>
+        {slice.length === 0 ? (
+          <div className="mt-6 border-2 border-ink bg-paper p-8 text-center">
+            <div className="font-display text-2xl font-bold text-ink">
+              No matching listings
+            </div>
+            <p className="mt-2 text-sm text-ink-soft">
+              Try clearing a filter or broadening your search.
+            </p>
+            <div className="mt-4 flex justify-center">
+              <Link href="/adopt" className="btn-secondary">
+                Reset all filters
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <section className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {slice.map((dog) => (
+              <DogCard key={dog.id} dog={dog} />
+            ))}
+          </section>
+        )}
 
         <Pagination
           page={safePage}
@@ -140,17 +158,13 @@ function labelBool(v: boolean) {
 }
 
 function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-200/80">
-      {children}
-    </span>
-  )
+  return <span className="pill">{children}</span>
 }
 
 function DogCard({ dog }: { dog: Dog }) {
   return (
-    <article className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-      <div className="relative">
+    <article className="flex flex-col border-2 border-ink bg-paper transition-shadow hover:shadow-press-sm">
+      <div className="photo-frame border-0 border-b border-ink p-1.5">
         <img
           src={animalPhotoUrl(dog.photoTopic, dog.photoSeed, 1200, 900)}
           alt={`${dog.name}`}
@@ -158,33 +172,35 @@ function DogCard({ dog }: { dog: Dog }) {
           loading="lazy"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 to-transparent" />
-        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-          <div className="text-base font-semibold text-white">{dog.name}</div>
-          <div className="rounded-full bg-white/10 px-3 py-1 text-xs text-slate-100/90">
-            {dog.size}
-          </div>
-        </div>
       </div>
 
-      <div className="p-5">
-        <div className="text-xs text-slate-300/60">
+      <div className="flex flex-1 flex-col p-4">
+        <div className="flex items-baseline justify-between gap-2">
+          <h2 className="font-display text-xl font-bold text-ink">
+            {dog.name}
+          </h2>
+          <span className="pill">{dog.size}</span>
+        </div>
+        <div className="mt-1 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
           {dog.breed} · {dog.location}
         </div>
-        <div className="mt-3 flex flex-wrap gap-2">
+
+        <div className="mt-3 flex flex-wrap gap-1.5">
           <Chip>{dog.sex}</Chip>
           <Chip>{dog.energy} energy</Chip>
           <Chip>Kids: {dog.goodWithKids ? 'Yes' : 'Older'}</Chip>
           <Chip>Dogs: {labelBool(dog.goodWithDogs)}</Chip>
           <Chip>Cats: {labelBool(dog.goodWithCats)}</Chip>
         </div>
-        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-200/70">
+
+        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-soft">
           {dog.description}
         </p>
-        <div className="mt-4 flex gap-3">
+
+        <div className="mt-4 flex gap-2">
           <Link
             href={`/dogs/${dog.id}`}
-            className="flex-1 rounded-2xl bg-sky-400 px-4 py-2.5 text-center text-sm font-semibold text-slate-950 transition hover:bg-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/70"
+            className="btn-primary flex-1 !py-2 text-[11px]"
           >
             View profile
           </Link>
@@ -192,7 +208,7 @@ function DogCard({ dog }: { dog: Dog }) {
             href={`mailto:adoptions@petsafetytraining.com?subject=Adoption%20interest%20for%20${encodeURIComponent(
               dog.name,
             )}%20(${encodeURIComponent(dog.id)})`}
-            className="rounded-2xl border border-white/15 bg-white/5 px-4 py-2.5 text-center text-sm font-semibold text-white/90 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+            className="btn-secondary !py-2 text-[11px]"
           >
             Contact
           </a>
@@ -213,23 +229,38 @@ function Pagination({
 }) {
   const prev = Math.max(1, page - 1)
   const next = Math.min(totalPages, page + 1)
+  const isFirst = page <= 1
+  const isLast = page >= totalPages
+
   return (
-    <div className="mt-10 flex items-center justify-center gap-3">
+    <div className="mt-12 flex items-center justify-center gap-4 border-y-2 border-ink py-5">
       <Link
         href={hrefForPage(prev)}
-        className="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10"
+        aria-disabled={isFirst}
+        className={[
+          'btn-secondary',
+          isFirst ? 'pointer-events-none opacity-40' : '',
+        ].join(' ')}
       >
-        Previous
+        ← Previous
       </Link>
-      <div className="text-sm text-slate-200/70">
-        Page <span className="font-semibold text-white">{page}</span> of{' '}
-        <span className="font-semibold text-white">{totalPages}</span>
+      <div className="text-sm text-ink-soft">
+        Page{' '}
+        <span className="font-display text-lg font-black text-ink">{page}</span>{' '}
+        of{' '}
+        <span className="font-display text-lg font-black text-ink">
+          {totalPages}
+        </span>
       </div>
       <Link
         href={hrefForPage(next)}
-        className="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10"
+        aria-disabled={isLast}
+        className={[
+          'btn-secondary',
+          isLast ? 'pointer-events-none opacity-40' : '',
+        ].join(' ')}
       >
-        Next
+        Next →
       </Link>
     </div>
   )
@@ -248,25 +279,34 @@ function DirectoryControls({
     <form
       action="/adopt"
       method="get"
-      className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-5"
+      className="mt-6 border-2 border-ink bg-paper-2/40 p-5"
     >
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="eyebrow-ink mb-4 flex items-center gap-3">
+        <span>Search & Filter</span>
+        <span className="h-px flex-1 bg-ink/40" />
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <label className="block">
-          <div className="text-xs font-semibold text-slate-300/70">Search</div>
+          <div className="text-[11px] font-bold uppercase tracking-editorial text-ink-mute">
+            Search
+          </div>
           <input
             name="q"
             placeholder="Name, breed, location…"
             defaultValue={defaults.q}
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
+            className="input-field mt-2"
           />
         </label>
 
         <label className="block">
-          <div className="text-xs font-semibold text-slate-300/70">Size</div>
+          <div className="text-[11px] font-bold uppercase tracking-editorial text-ink-mute">
+            Size
+          </div>
           <select
             name="size"
             defaultValue={defaults.size}
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2.5 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
+            className="select-field mt-2"
           >
             <option value="">Any</option>
             {sizes.map((s) => (
@@ -278,11 +318,13 @@ function DirectoryControls({
         </label>
 
         <label className="block">
-          <div className="text-xs font-semibold text-slate-300/70">Energy</div>
+          <div className="text-[11px] font-bold uppercase tracking-editorial text-ink-mute">
+            Energy
+          </div>
           <select
             name="energy"
             defaultValue={defaults.energy}
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2.5 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
+            className="select-field mt-2"
           >
             <option value="">Any</option>
             {energies.map((e) => (
@@ -294,11 +336,13 @@ function DirectoryControls({
         </label>
 
         <label className="block">
-          <div className="text-xs font-semibold text-slate-300/70">Sex</div>
+          <div className="text-[11px] font-bold uppercase tracking-editorial text-ink-mute">
+            Sex
+          </div>
           <select
             name="sex"
             defaultValue={defaults.sex}
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2.5 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
+            className="select-field mt-2"
           >
             <option value="">Any</option>
             {sexes.map((s) => (
@@ -310,21 +354,14 @@ function DirectoryControls({
         </label>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <button
-          type="submit"
-          className="rounded-2xl bg-sky-400 px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
-        >
+      <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-ink/40 pt-4">
+        <button type="submit" className="btn-primary">
           Apply filters
         </button>
-        <Link
-          href="/adopt"
-          className="rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white/90 transition hover:bg-white/10"
-        >
+        <Link href="/adopt" className="btn-secondary">
           Reset
         </Link>
       </div>
     </form>
   )
 }
-

@@ -12,8 +12,8 @@ const configuration = {
   appShortName: 'Pet Safety',
   appDescription: 'Pet Safety Training — safer pets, better homes.',
   developerName: 'Pet Safety Training',
-  background: '#020617',
-  theme_color: '#0b1220',
+  background: '#f3ead4',
+  theme_color: '#f3ead4',
   icons: {
     favicons: true,
     android: true,

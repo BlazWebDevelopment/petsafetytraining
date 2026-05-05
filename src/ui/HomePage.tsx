@@ -3,16 +3,13 @@ import type { ReactNode } from 'react'
 import { Container } from '../components/Container'
 import { getAllArticles } from '../lib/data/articles'
 import { getAllDogs } from '../lib/data/dogs'
+import { formatArticleDate, formatArticleDateShort } from '../lib/format'
 import { animalPhotoUrl } from '../lib/photos'
-import type { Dog } from '../lib/types'
+import type { Article, Dog } from '../lib/types'
 
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="text-lg font-semibold text-white">{value}</div>
-      <div className="text-sm text-slate-300/70">{label}</div>
-    </div>
-  )
+function articleCoverSrc(article: Article) {
+  if (article.slug === 'mikolas-pygmy-hippo-neuralink') return '/pigmi.jpg'
+  return animalPhotoUrl(article.coverTopic, article.coverSeed, 1200, 900)
 }
 
 function PrimaryLinkButton({
@@ -23,10 +20,7 @@ function PrimaryLinkButton({
   children: ReactNode
 }) {
   return (
-    <Link
-      href={to}
-      className="inline-flex items-center justify-center rounded-2xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 shadow-sm shadow-sky-400/20 transition hover:bg-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/70"
-    >
+    <Link href={to} className="btn-primary">
       {children}
     </Link>
   )
@@ -40,10 +34,7 @@ function SecondaryLinkButton({
   children: ReactNode
 }) {
   return (
-    <Link
-      href={to}
-      className="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-    >
+    <Link href={to} className="btn-secondary">
       {children}
     </Link>
   )
@@ -59,16 +50,40 @@ function SectionHeading({
   desc?: string
 }) {
   return (
-    <div className="max-w-2xl">
-      <div className="text-xs font-semibold tracking-wide text-slate-300/70">
-        {eyebrow}
+    <div className="mb-6 border-b-2 border-ink pb-4">
+      <div className="flex items-baseline justify-between gap-4">
+        <div className="eyebrow">{eyebrow}</div>
+        <div className="hidden h-px flex-1 self-center bg-ink/50 sm:block" />
       </div>
-      <h2 className="mt-2 text-balance text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+      <h2 className="mt-2 font-display text-3xl font-black leading-tight tracking-tight text-ink sm:text-4xl">
         {title}
       </h2>
       {desc ? (
-        <p className="mt-3 text-sm leading-relaxed text-slate-200/70">{desc}</p>
+        <p className="mt-2 max-w-3xl text-base leading-relaxed text-ink-soft">
+          {desc}
+        </p>
       ) : null}
+    </div>
+  )
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="border border-ink bg-paper-2/50 p-4">
+      <div className="font-display text-2xl font-black text-ink">{value}</div>
+      <div className="mt-1 text-[11px] font-bold uppercase tracking-editorial text-ink-mute">
+        {label}
+      </div>
+    </div>
+  )
+}
+
+function Ornament() {
+  return (
+    <div className="my-10 flex items-center justify-center gap-3 text-ink">
+      <span className="block h-px w-16 bg-ink" />
+      <span className="font-display text-xl italic">§</span>
+      <span className="block h-px w-16 bg-ink" />
     </div>
   )
 }
@@ -80,252 +95,261 @@ export function HomePage() {
 
   const featuredDogs = dogs.slice(0, 8)
   const latestArticles = articles.slice(0, 3)
+  const leadArticle = articles[0]
 
   return (
     <Container>
-      <section className="grid items-center gap-10 lg:grid-cols-2">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200/80">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            Pet safety training + rescue directory
-          </div>
-
-          <h1 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            Pet Safety Training
-          </h1>
-          <p className="mt-4 text-pretty text-base leading-relaxed text-slate-200/75">
-            A modern safety-first hub for pet owners and adopters. Learn practical
-            routines, browse real rescue-style profiles, and read stories that
-            keep awareness high and outcomes better.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <PrimaryLinkButton to="/adopt">Browse 590 rescue dogs</PrimaryLinkButton>
-            <SecondaryLinkButton to="/articles/when-wealth-isnt-enough">
-              Read the featured article
-            </SecondaryLinkButton>
-          </div>
-
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <Stat label="Rescue profiles" value={`${dogs.length} dogs`} />
-            <Stat label="Locations covered" value={`${locations}+ cities`} />
-            <Stat label="Articles" value={`${articles.length} stories`} />
-          </div>
-
-          <form
-            action="/adopt"
-            method="get"
-            className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4"
-          >
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <input
-                name="q"
-                placeholder="Search dogs by name, breed, or location…"
-                className="w-full flex-1 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
-              />
-              <button
-                type="submit"
-                className="rounded-2xl bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
-              >
-                Search
-              </button>
-            </div>
-            <div className="mt-3 grid gap-2 text-xs text-slate-200/70 sm:grid-cols-2">
-              {[
-                'Safety-first adoption guidance',
-                'Clear traits & compatibility flags',
-                'Practical handling + emergency basics',
-                'Shareable filters and links',
-              ].map((x) => (
-                <div key={x} className="flex items-start gap-2">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-emerald-400" />
-                  <span>{x}</span>
-                </div>
-              ))}
-            </div>
-          </form>
-        </div>
-
-        <div className="relative">
-          <div className="absolute -inset-4 -z-10 rounded-[32px] bg-gradient-to-br from-sky-400/20 via-emerald-400/10 to-fuchsia-400/20 blur-2xl" />
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-              <img
-                src={animalPhotoUrl('dog', 11, 900, 900)}
-                alt="Dog"
-                className="h-64 w-full object-cover sm:h-72"
-                loading="lazy"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-            <div className="grid gap-3">
-              <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-                <img
-                  src={animalPhotoUrl('cat', 22, 900, 650)}
-                  alt="Cat"
-                  className="h-32 w-full object-cover sm:h-36"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-                <img
-                  src={animalPhotoUrl('rabbit', 33, 900, 650)}
-                  alt="Rabbit"
-                  className="h-32 w-full object-cover sm:h-36"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-            </div>
+      <section className="border-2 border-ink bg-paper p-6 sm:p-8">
+        <div className="flex flex-col items-baseline justify-between gap-2 border-b border-ink pb-3 sm:flex-row">
+          <div className="eyebrow">The Front Page · Lead Story</div>
+          <div className="text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+            Special Report
           </div>
         </div>
-      </section>
 
-      <section className="mt-16 grid gap-6 lg:grid-cols-3">
-        {[
-          {
-            title: 'Practical training',
-            desc: 'Clear steps for handling, nutrition basics, and safety-first routines.',
-          },
-          {
-            title: 'Emergency readiness',
-            desc: 'Know what to do first for heat issues, choking risks, wounds, and stress.',
-          },
-          {
-            title: 'Confidence for owners',
-            desc: 'Build habits that keep pets calm and safe at home, on walks, and in transit.',
-          },
-        ].map((card) => (
-          <div
-            key={card.title}
-            className="rounded-3xl border border-white/10 bg-white/5 p-6"
-          >
-            <h2 className="text-lg font-semibold text-white">{card.title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-200/70">
-              {card.desc}
+        <div className="mt-6 grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <h1 className="font-display text-4xl font-black leading-[0.95] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+              Safer Pets,{' '}
+              <span className="italic text-accent">Better Homes.</span>
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
+              A modern, old-school hub for pet owners and adopters. Read
+              practical safety articles, browse a real rescue directory, and
+              build the daily habits that keep animals out of trouble — and out
+              of the emergency room.
             </p>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <PrimaryLinkButton to="/adopt">
+                Browse {dogs.length} rescue dogs
+              </PrimaryLinkButton>
+              <SecondaryLinkButton to="/articles">
+                Read the editorial
+              </SecondaryLinkButton>
+            </div>
+
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <Stat label="Rescue profiles" value={`${dogs.length}`} />
+              <Stat label="Cities covered" value={`${locations}+`} />
+              <Stat label="Articles" value={`${articles.length}`} />
+            </div>
+
+            <form
+              action="/adopt"
+              method="get"
+              className="mt-8 border-2 border-ink bg-paper-2/40 p-4"
+            >
+              <div className="eyebrow-ink mb-3">Search the directory</div>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+                <input
+                  name="q"
+                  placeholder="Search by name, breed, or city…"
+                  className="input-field flex-1"
+                />
+                <button type="submit" className="btn-primary whitespace-nowrap">
+                  Search
+                </button>
+              </div>
+              <div className="mt-4 grid gap-2 text-sm text-ink-soft sm:grid-cols-2">
+                {[
+                  'Safety-first adoption guidance',
+                  'Clear traits & compatibility flags',
+                  'Practical handling + emergency basics',
+                  'Shareable filters and links',
+                ].map((x) => (
+                  <div key={x} className="flex items-start gap-2">
+                    <span className="mt-2 inline-block h-1.5 w-1.5 bg-accent" />
+                    <span>{x}</span>
+                  </div>
+                ))}
+              </div>
+            </form>
           </div>
-        ))}
+
+          <aside className="lg:col-span-5">
+            {leadArticle ? (
+              <article className="border-2 border-ink bg-paper">
+                <div className="photo-frame">
+                  <img
+                    src={articleCoverSrc(leadArticle)}
+                    alt={
+                      leadArticle.slug === 'mikolas-pygmy-hippo-neuralink'
+                        ? 'Mikolas, the pygmy hippo'
+                        : ''
+                    }
+                    className="h-64 w-full object-cover sm:h-72"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <div className="p-5">
+                  <div className="eyebrow">Today’s Headline</div>
+                  <h2 className="mt-2 font-display text-2xl font-black leading-tight tracking-tight text-ink">
+                    <Link
+                      href={`/articles/${leadArticle.slug}`}
+                      className="hover:text-accent"
+                    >
+                      {leadArticle.title}
+                    </Link>
+                  </h2>
+                  <p className="mt-2 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+                    {formatArticleDate(leadArticle.publishedAt).toUpperCase()} ·{' '}
+                    {leadArticle.author}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                    {leadArticle.excerpt}
+                  </p>
+                  <Link
+                    href={`/articles/${leadArticle.slug}`}
+                    className="mt-4 inline-block link-underline text-sm font-bold uppercase tracking-editorial"
+                  >
+                    Read the full story →
+                  </Link>
+                </div>
+              </article>
+            ) : null}
+          </aside>
+        </div>
       </section>
 
-      <section className="mt-16">
+      <Ornament />
+
+      <section>
         <SectionHeading
-          eyebrow="Rescue directory"
-          title="Featured dogs ready for a safer home"
-          desc="Browse profiles with realistic details. Each dog page is shareable and includes compatibility flags."
+          eyebrow="The Curriculum"
+          title="What every owner should know"
+          desc="Three pillars that keep pets safer at home, on walks, and in transit."
         />
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-0 border-2 border-ink lg:grid-cols-3 col-rule">
+          {[
+            {
+              n: 'I.',
+              title: 'Practical Training',
+              desc: 'Clear steps for handling, nutrition basics, and safety-first routines.',
+            },
+            {
+              n: 'II.',
+              title: 'Emergency Readiness',
+              desc: 'Know what to do first for heat issues, choking risks, wounds, and stress.',
+            },
+            {
+              n: 'III.',
+              title: 'Confidence for Owners',
+              desc: 'Build habits that keep pets calm and safe at home, on walks, and in transit.',
+            },
+          ].map((card) => (
+            <div key={card.title} className="bg-paper p-6">
+              <div className="font-display text-3xl font-black italic text-accent">
+                {card.n}
+              </div>
+              <h3 className="mt-2 font-display text-xl font-bold text-ink">
+                {card.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                {card.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <Ornament />
+
+      <section>
+        <SectionHeading
+          eyebrow="Rescue Directory"
+          title="Featured dogs ready for a safer home"
+          desc="Browse profiles with realistic details. Each page is shareable and includes compatibility notes."
+        />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {featuredDogs.map((dog) => (
             <FeaturedDogCard key={dog.id} dog={dog} />
           ))}
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-wrap gap-3">
           <PrimaryLinkButton to="/adopt">Explore all dogs</PrimaryLinkButton>
-          <SecondaryLinkButton to="/articles">Read all articles</SecondaryLinkButton>
+          <SecondaryLinkButton to="/articles">
+            Read all articles
+          </SecondaryLinkButton>
         </div>
       </section>
 
-      <section className="mt-16">
+      <Ornament />
+
+      <section>
         <SectionHeading
-          eyebrow="Latest"
-          title="New articles and safety stories"
+          eyebrow="From the Editorial Desk"
+          title="Latest articles & safety stories"
           desc="Short, clear pieces designed to raise awareness and improve daily care."
         />
-        <div className="mt-6 grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-0 border-2 border-ink lg:grid-cols-3 col-rule">
           {latestArticles.map((a) => (
-            <article
-              key={a.id}
-              className="overflow-hidden rounded-3xl border border-white/10 bg-white/5"
-            >
-              <div className="relative">
-                <img
-                  src={animalPhotoUrl(a.coverTopic, a.coverSeed, 1200, 800)}
-                  alt=""
-                  className="h-44 w-full object-cover"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950/80 to-transparent" />
-              </div>
-              <div className="p-5">
-                <div className="text-xs text-slate-300/60">
-                  {new Date(a.publishedAt).toLocaleDateString(undefined, {
-                    year: 'numeric',
-                    month: 'short',
-                    day: '2-digit',
-                  })}
-                </div>
-                <h3 className="mt-2 text-base font-semibold text-white">
-                  <Link
-                    href={`/articles/${a.slug}`}
-                    className="hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
-                  >
-                    {a.title}
-                  </Link>
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-200/70">
-                  {a.excerpt}
-                </p>
-                <div className="mt-4">
-                  <Link
-                    href={`/articles/${a.slug}`}
-                    className="text-sm font-semibold text-sky-300 hover:text-sky-200"
-                  >
-                    Read more →
-                  </Link>
-                </div>
-              </div>
-            </article>
+            <ArticleTeaser key={a.id} article={a} />
           ))}
         </div>
       </section>
 
-      <section className="mt-16">
+      <Ornament />
+
+      <section>
         <SectionHeading
-          eyebrow="Program"
+          eyebrow="The Programme"
           title="What you’ll learn"
-          desc="A realistic starter curriculum designed for pet owners. These sections can later be connected to real lesson pages, booking, and pricing."
+          desc="A realistic starter curriculum designed for pet owners. Connectable to real lesson pages, booking, and pricing later on."
         />
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-0 border-2 border-ink sm:grid-cols-2">
           {[
             {
+              n: '01',
               title: 'Safe handling & body language',
               desc: 'Read stress signals, prevent bites, and handle pets safely in daily situations.',
             },
             {
+              n: '02',
               title: 'Home safety checklist',
               desc: 'Toxic foods, cords, chemicals, small-object choking risks, and room-by-room fixes.',
             },
             {
+              n: '03',
               title: 'Walk safety & leash skills',
               desc: 'Calm exits, safe greetings, avoiding hazards, and building reliable recall habits.',
             },
             {
+              n: '04',
               title: 'Heat, hydration & seasonal risks',
               desc: 'Recognize overheating early, plan safer walks, and protect paws and coats.',
             },
             {
+              n: '05',
               title: 'Transport & travel',
               desc: 'Crate/seat safety, car anxiety tips, and what to pack for emergencies.',
             },
             {
+              n: '06',
               title: 'First response basics',
               desc: 'What to do first (and what not to do) before you reach a vet in urgent moments.',
             },
-          ].map((m) => (
+          ].map((m, idx) => (
             <div
               key={m.title}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6"
+              className={[
+                'bg-paper p-6',
+                idx % 2 === 0 ? 'sm:border-r sm:border-ink' : '',
+                idx < 4 ? 'border-b border-ink' : '',
+              ].join(' ')}
             >
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-base font-semibold text-white">{m.title}</h3>
-                <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[11px] text-slate-200/70">
-                  module
-                </span>
+              <div className="flex items-baseline justify-between gap-3">
+                <div className="font-mono text-xs font-bold tracking-widest text-accent">
+                  №&nbsp;{m.n}
+                </div>
+                <span className="pill">module</span>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-slate-200/70">
+              <h3 className="mt-2 font-display text-lg font-bold text-ink">
+                {m.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                 {m.desc}
               </p>
             </div>
@@ -333,74 +357,88 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="mt-16 grid gap-10 lg:grid-cols-2 lg:items-center">
-        <div>
-          <SectionHeading
-            eyebrow="Formats"
-            title="Choose how you train"
-            desc="Flexible options for busy owners. Replace with real scheduling later."
-          />
-          <div className="mt-6 space-y-4">
+      <Ornament />
+
+      <section>
+        <SectionHeading
+          eyebrow="Formats"
+          title="Choose how you train"
+          desc="Flexible options for busy owners. Real scheduling can be wired in later."
+        />
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="space-y-4">
             {[
               {
-                title: 'Small-group session (60–90 min)',
+                title: 'Small-group session',
+                meta: '60–90 min · in-person',
                 desc: 'Hands-on practice with a trainer, focused on safety skills and routines.',
               },
               {
                 title: 'Private session (1:1)',
+                meta: 'flexible · in-person',
                 desc: 'For anxious pets or specific goals: handling, walks, travel, or home hazards.',
               },
               {
-                title: 'Online refresher (30 min)',
+                title: 'Online refresher',
+                meta: '30 min · video call',
                 desc: 'Quick check-ins to keep progress on track and answer questions.',
               },
             ].map((x) => (
-              <div
-                key={x.title}
-                className="rounded-3xl border border-white/10 bg-white/5 p-6"
-              >
-                <div className="text-base font-semibold text-white">{x.title}</div>
-                <div className="mt-2 text-sm text-slate-200/70">{x.desc}</div>
+              <div key={x.title} className="border-2 border-ink bg-paper p-5">
+                <div className="flex items-baseline justify-between gap-3">
+                  <div className="font-display text-xl font-bold text-ink">
+                    {x.title}
+                  </div>
+                  <div className="text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+                    {x.meta}
+                  </div>
+                </div>
+                <div className="mt-2 text-sm leading-relaxed text-ink-soft">
+                  {x.desc}
+                </div>
               </div>
             ))}
           </div>
-        </div>
 
-        <div className="relative">
-          <div className="absolute -inset-4 -z-10 rounded-[32px] bg-gradient-to-br from-emerald-400/15 via-sky-400/10 to-fuchsia-400/15 blur-2xl" />
-          <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-            <img
-              src={animalPhotoUrl('pet', 77, 1400, 900)}
-              alt="Pets"
-              className="h-[360px] w-full object-cover sm:h-[420px]"
-              loading="lazy"
-              referrerPolicy="no-referrer"
-            />
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-              <div className="text-sm font-semibold text-white">What to bring</div>
-              <div className="mt-2 text-sm text-slate-200/70">
-                Leash, treats, water, and any medical notes.
-              </div>
+          <div>
+            <div className="photo-frame">
+              <img
+                src={animalPhotoUrl('pet', 77, 1400, 900)}
+                alt="Pets"
+                className="h-[360px] w-full object-cover sm:h-[420px]"
+                loading="lazy"
+                referrerPolicy="no-referrer"
+              />
             </div>
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-              <div className="text-sm font-semibold text-white">Before training</div>
-              <div className="mt-2 text-sm text-slate-200/70">
-                Light meal, short walk, and a calm arrival.
+            <div className="mt-2 text-center text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+              Plate I · A study in companionship
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-0 border-2 border-ink">
+              <div className="border-r border-ink bg-paper p-5">
+                <div className="eyebrow-ink">What to bring</div>
+                <div className="mt-2 text-sm text-ink-soft">
+                  Leash, treats, water, and any medical notes.
+                </div>
+              </div>
+              <div className="bg-paper p-5">
+                <div className="eyebrow-ink">Before training</div>
+                <div className="mt-2 text-sm text-ink-soft">
+                  Light meal, short walk, and a calm arrival.
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mt-16">
+      <Ornament />
+
+      <section>
         <SectionHeading
-          eyebrow="Stories"
+          eyebrow="Letters to the Editor"
           title="What owners say"
-          desc="Short testimonials help the page feel like a real training site."
         />
-        <div className="mt-6 grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-0 border-2 border-ink lg:grid-cols-3 col-rule">
           {[
             {
               quote:
@@ -421,37 +459,37 @@ export function HomePage() {
               location: 'Boston, MA',
             },
           ].map((t) => (
-            <figure
-              key={t.name}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6"
-            >
-              <blockquote className="text-sm leading-relaxed text-slate-200/80">
-                “{t.quote}”
+            <figure key={t.name} className="bg-paper p-6">
+              <div className="font-display text-4xl leading-none text-accent">
+                “
+              </div>
+              <blockquote className="mt-2 font-display text-lg italic leading-relaxed text-ink">
+                {t.quote}
               </blockquote>
-              <figcaption className="mt-4 text-xs text-slate-300/70">
-                <span className="font-semibold text-white">{t.name}</span> ·{' '}
-                {t.location}
+              <figcaption className="mt-4 border-t border-ink/60 pt-3 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+                <span className="text-ink">{t.name}</span> · {t.location}
               </figcaption>
             </figure>
           ))}
         </div>
       </section>
 
-      <section className="mt-16">
+      <Ornament />
+
+      <section>
         <SectionHeading
-          eyebrow="FAQ"
+          eyebrow="Frequently Asked"
           title="Common questions"
-          desc="Quick answers that people expect on training websites."
         />
-        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-0 border-2 border-ink lg:grid-cols-2">
           {[
             {
               q: 'Do you train puppies and kittens?',
-              a: 'Yes—sessions are adjusted by age, energy level, and attention span.',
+              a: 'Yes — sessions are adjusted by age, energy level, and attention span.',
             },
             {
               q: 'Is this obedience training?',
-              a: 'It’s safety-first training: handling, prevention, and emergency readiness (with calm behavior basics).',
+              a: 'It’s safety-first training: handling, prevention, and emergency readiness, with calm-behavior basics.',
             },
             {
               q: 'What if my pet is anxious or reactive?',
@@ -459,52 +497,73 @@ export function HomePage() {
             },
             {
               q: 'Do I need special equipment?',
-              a: 'No—just a leash, treats, water, and a comfortable collar/harness.',
+              a: 'No — just a leash, treats, water, and a comfortable collar/harness.',
             },
-          ].map((f) => (
+          ].map((f, idx) => (
             <div
               key={f.q}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6"
+              className={[
+                'bg-paper p-6',
+                idx % 2 === 0 ? 'lg:border-r lg:border-ink' : '',
+                idx < 2 ? 'border-b border-ink' : '',
+              ].join(' ')}
             >
-              <div className="text-sm font-semibold text-white">{f.q}</div>
-              <div className="mt-2 text-sm leading-relaxed text-slate-200/70">
-                {f.a}
+              <div className="flex items-baseline gap-3">
+                <span className="font-display text-xl font-black italic text-accent">
+                  Q.
+                </span>
+                <div className="font-display text-lg font-bold text-ink">
+                  {f.q}
+                </div>
+              </div>
+              <div className="mt-2 flex items-baseline gap-3">
+                <span className="font-display text-xl font-black italic text-ink">
+                  A.
+                </span>
+                <p className="text-sm leading-relaxed text-ink-soft">{f.a}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="mt-16 mb-4 overflow-hidden rounded-[32px] border border-white/10 bg-white/5">
+      <Ornament />
+
+      <section className="border-2 border-ink bg-ink text-paper">
         <div className="grid gap-8 p-8 lg:grid-cols-2 lg:items-center">
           <div>
-            <div className="text-xs font-semibold tracking-wide text-slate-300/70">
+            <div className="text-[11px] font-bold uppercase tracking-editorial text-paper-3">
               Get started
             </div>
-            <h2 className="mt-2 text-balance text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            <h2 className="mt-2 font-display text-3xl font-black leading-tight tracking-tight text-paper sm:text-4xl">
               Ready to make your home safer for your pet?
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-200/70">
-              Start with the adoption listings or read the featured article—then
-              we can add real booking, pricing, and lesson pages when you’re
-              ready.
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-paper/85">
+              Start with the rescue directory or the editorial articles — then
+              we can wire in real booking, pricing, and lesson pages whenever
+              you’re ready.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <PrimaryLinkButton to="/adopt">Explore adoptions</PrimaryLinkButton>
-              <SecondaryLinkButton to="/articles/when-wealth-isnt-enough">
-                Read the article
-              </SecondaryLinkButton>
+              <Link href="/adopt" className="btn-accent">
+                Explore adoptions
+              </Link>
+              <Link
+                href="/articles"
+                className="btn-secondary !border-paper !bg-transparent !text-paper hover:!bg-paper hover:!text-ink"
+              >
+                Read the articles
+              </Link>
             </div>
           </div>
-          <div className="relative">
-            <div className="absolute -inset-6 -z-10 rounded-[32px] bg-gradient-to-br from-sky-400/20 via-emerald-400/10 to-fuchsia-400/20 blur-2xl" />
-            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+          <div>
+            <div className="border border-paper bg-ink p-2">
               <img
                 src={animalPhotoUrl('dog', 88, 1400, 900)}
                 alt="Dog training"
                 className="h-64 w-full object-cover sm:h-72"
                 loading="lazy"
                 referrerPolicy="no-referrer"
+                style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
               />
             </div>
           </div>
@@ -516,36 +575,35 @@ export function HomePage() {
 
 function FeaturedDogCard({ dog }: { dog: Dog }) {
   return (
-    <article className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-      <div className="relative">
+    <article className="group flex flex-col border-2 border-ink bg-paper transition-shadow hover:shadow-press-sm">
+      <div className="photo-frame border-0 border-b border-ink p-1.5">
         <img
           src={animalPhotoUrl(dog.photoTopic, dog.photoSeed, 1200, 900)}
           alt={`${dog.name}`}
-          className="h-40 w-full object-cover"
+          className="h-44 w-full object-cover"
           loading="lazy"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 to-transparent" />
-        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-          <div className="text-base font-semibold text-white">{dog.name}</div>
-          <div className="rounded-full bg-white/10 px-3 py-1 text-xs text-slate-100/90">
-            {dog.size}
-          </div>
-        </div>
       </div>
-      <div className="p-5">
-        <div className="text-xs text-slate-300/60">
+      <div className="flex flex-1 flex-col p-4">
+        <div className="flex items-baseline justify-between gap-2">
+          <h3 className="font-display text-xl font-bold text-ink">
+            {dog.name}
+          </h3>
+          <span className="pill">{dog.size}</span>
+        </div>
+        <div className="mt-1 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
           {dog.breed} · {dog.location}
         </div>
-        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-200/70">
+        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-soft">
           {dog.description}
         </p>
-        <div className="mt-4 flex gap-3">
+        <div className="mt-4 flex">
           <Link
             href={`/dogs/${dog.id}`}
-            className="flex-1 rounded-2xl bg-sky-400 px-4 py-2.5 text-center text-sm font-semibold text-slate-950 transition hover:bg-sky-300"
+            className="btn-primary w-full !py-2"
           >
-            View profile
+            View profile →
           </Link>
         </div>
       </div>
@@ -553,3 +611,43 @@ function FeaturedDogCard({ dog }: { dog: Dog }) {
   )
 }
 
+function ArticleTeaser({ article }: { article: Article }) {
+  const isMikolas = article.slug === 'mikolas-pygmy-hippo-neuralink'
+  return (
+    <article className="bg-paper p-5">
+      <div className="photo-frame">
+        <img
+          src={
+            isMikolas
+              ? '/pigmi.jpg'
+              : animalPhotoUrl(article.coverTopic, article.coverSeed, 1200, 800)
+          }
+          alt={isMikolas ? 'Mikolas, the pygmy hippo' : ''}
+          className="h-40 w-full object-cover"
+          loading="lazy"
+          referrerPolicy="no-referrer"
+        />
+      </div>
+      <div className="mt-4 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+        {formatArticleDateShort(article.publishedAt).toUpperCase()}
+      </div>
+      <h3 className="mt-1 font-display text-xl font-bold leading-snug text-ink">
+        <Link
+          href={`/articles/${article.slug}`}
+          className="hover:text-accent"
+        >
+          {article.title}
+        </Link>
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+        {article.excerpt}
+      </p>
+      <Link
+        href={`/articles/${article.slug}`}
+        className="mt-3 inline-block link-underline text-sm font-bold uppercase tracking-editorial"
+      >
+        Read more →
+      </Link>
+    </article>
+  )
+}

@@ -8,16 +8,11 @@ import { getAllDogs } from '../../../lib/data/dogs'
 export const dynamic = 'force-static'
 
 export function generateStaticParams() {
-  // Pre-render all dogs (590) as static pages.
   return getAllDogs().map((d) => ({ id: d.id }))
 }
 
 function Badge({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-200/80">
-      {children}
-    </span>
-  )
+  return <span className="pill">{children}</span>
 }
 
 export default async function Page({
@@ -32,66 +27,110 @@ export default async function Page({
   return (
     <Layout>
       <Container>
-        <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-5">
+        <div className="mb-6 flex items-center justify-between border-b-2 border-ink pb-3">
+          <div className="eyebrow">Rescue Profile</div>
+          <Link
+            href="/adopt"
+            className="text-[11px] font-bold uppercase tracking-editorial text-ink hover:text-accent"
+          >
+            ← Back to directory
+          </Link>
+        </div>
+
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+            <div className="photo-frame">
               <img
                 src={animalPhotoUrl(dog.photoTopic, dog.photoSeed, 1400, 900)}
                 alt={`${dog.name}`}
-                className="h-[340px] w-full object-cover sm:h-[420px]"
+                className="h-[340px] w-full object-cover sm:h-[460px]"
                 loading="lazy"
                 referrerPolicy="no-referrer"
               />
             </div>
-
-            <div className="mt-5 flex flex-wrap gap-2">
-              {dog.traits.map((t) => (
-                <Badge key={t}>{t}</Badge>
-              ))}
+            <div className="mt-2 text-center text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+              Plate · {dog.name}, {dog.breed}
             </div>
 
-            <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h2 className="text-lg font-semibold text-white">About {dog.name}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-slate-200/75">
+            <div className="mt-6 border-2 border-ink bg-paper p-6">
+              <div className="eyebrow-ink">Traits</div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {dog.traits.map((t) => (
+                  <Badge key={t}>{t}</Badge>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 border-2 border-ink bg-paper p-6">
+              <h2 className="font-display text-2xl font-bold text-ink">
+                About {dog.name}
+              </h2>
+              <div className="mt-1 h-px w-full bg-ink/40" />
+              <p className="mt-4 drop-cap text-base leading-relaxed text-ink-soft">
                 {dog.description}
               </p>
             </div>
           </div>
 
           <aside className="lg:col-span-2">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <div className="text-xs font-semibold tracking-wide text-slate-300/70">
-                Rescue profile
-              </div>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white">
+            <div className="border-2 border-ink bg-paper p-6">
+              <div className="eyebrow">Rescue Profile</div>
+              <h1 className="mt-2 font-display text-4xl font-black tracking-tight text-ink">
                 {dog.name}
               </h1>
-              <div className="mt-2 text-sm text-slate-200/70">{dog.breed}</div>
+              <div className="mt-1 text-sm italic text-ink-soft">
+                {dog.breed}
+              </div>
 
-              <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
+              <div className="my-5 double-rule" />
+
+              <dl className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
                 <div>
-                  <dt className="text-xs text-slate-300/60">Age</dt>
-                  <dd className="font-medium text-slate-100">{dog.ageYears} yrs</dd>
+                  <dt className="text-[10px] font-bold uppercase tracking-editorial text-ink-mute">
+                    Age
+                  </dt>
+                  <dd className="mt-1 font-display text-lg font-bold text-ink">
+                    {dog.ageYears} yrs
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-slate-300/60">Sex</dt>
-                  <dd className="font-medium text-slate-100">{dog.sex}</dd>
+                  <dt className="text-[10px] font-bold uppercase tracking-editorial text-ink-mute">
+                    Sex
+                  </dt>
+                  <dd className="mt-1 font-display text-lg font-bold text-ink">
+                    {dog.sex}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-slate-300/60">Size</dt>
-                  <dd className="font-medium text-slate-100">{dog.size}</dd>
+                  <dt className="text-[10px] font-bold uppercase tracking-editorial text-ink-mute">
+                    Size
+                  </dt>
+                  <dd className="mt-1 font-display text-lg font-bold text-ink">
+                    {dog.size}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-slate-300/60">Energy</dt>
-                  <dd className="font-medium text-slate-100">{dog.energy}</dd>
+                  <dt className="text-[10px] font-bold uppercase tracking-editorial text-ink-mute">
+                    Energy
+                  </dt>
+                  <dd className="mt-1 font-display text-lg font-bold text-ink">
+                    {dog.energy}
+                  </dd>
                 </div>
                 <div className="col-span-2">
-                  <dt className="text-xs text-slate-300/60">Location</dt>
-                  <dd className="font-medium text-slate-100">{dog.location}</dd>
+                  <dt className="text-[10px] font-bold uppercase tracking-editorial text-ink-mute">
+                    Location
+                  </dt>
+                  <dd className="mt-1 font-display text-lg font-bold text-ink">
+                    {dog.location}
+                  </dd>
                 </div>
               </dl>
 
-              <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-200/70">
+              <div className="my-5 double-rule" />
+
+              <div className="eyebrow-ink">Compatibility</div>
+              <div className="mt-3 flex flex-wrap gap-2">
                 <Badge>
                   Kids: {dog.goodWithKids ? 'Yes' : 'Prefer older'}
                 </Badge>
@@ -103,22 +142,30 @@ export default async function Page({
                 </Badge>
               </div>
 
-              <div className="mt-6 flex gap-3">
+              <div className="my-5 double-rule" />
+
+              <div className="flex flex-col gap-3">
                 <a
                   href={`mailto:adoptions@petsafetytraining.com?subject=Adoption%20interest%20for%20${encodeURIComponent(
                     dog.name,
                   )}%20(${encodeURIComponent(dog.id)})`}
-                  className="flex-1 rounded-2xl bg-emerald-400 px-4 py-2.5 text-center text-sm font-semibold text-slate-950 transition hover:bg-emerald-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60"
+                  className="btn-accent w-full"
                 >
                   Apply to adopt
                 </a>
-                <Link
-                  href="/adopt"
-                  className="rounded-2xl border border-white/15 bg-white/5 px-4 py-2.5 text-center text-sm font-semibold text-white/90 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-                >
-                  Back
+                <Link href="/adopt" className="btn-secondary w-full">
+                  Back to directory
                 </Link>
               </div>
+
+              <p className="mt-5 border-t border-ink/40 pt-4 text-[11px] leading-relaxed text-ink-mute">
+                Profiles are illustrative for the demonstration site. Replies
+                are sent to{' '}
+                <span className="font-semibold text-ink">
+                  adoptions@petsafetytraining.com
+                </span>
+                .
+              </p>
             </div>
           </aside>
         </div>
@@ -126,4 +173,3 @@ export default async function Page({
     </Layout>
   )
 }
-

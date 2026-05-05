@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { Container } from './Container'
 import { LogoMark } from './Logo'
 
@@ -17,13 +17,21 @@ function todayDateline() {
     .toUpperCase()
 }
 
+// `useSyncExternalStore` is the React-blessed way to render a value that is
+// only available on the client (today's date in the visitor's timezone) while
+// keeping SSR markup stable. The server snapshot returns an empty string, so
+// the initial HTML matches what the client renders during hydration; after
+// hydration, the live client snapshot takes over without a mismatch.
+const subscribe = () => () => {}
+const getServerSnapshot = () => ''
+
 export function Navbar() {
   const pathname = usePathname()
-  const [dateline, setDateline] = useState<string>('')
-
-  useEffect(() => {
-    setDateline(todayDateline())
-  }, [])
+  const dateline = useSyncExternalStore(
+    subscribe,
+    todayDateline,
+    getServerSnapshot,
+  )
 
   const isActive = (href: string) =>
     href === '/'

@@ -15,7 +15,7 @@ export function Footer() {
               Pet Safety Training
             </div>
             <div className="mt-1 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
-              Established MMXXVI
+              Established MMXVIII
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
               Practical, safety-first training and an honest rescue directory —

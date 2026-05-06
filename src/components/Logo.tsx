@@ -47,7 +47,7 @@ export function LogoMark({ className }: { className?: string }) {
         fill="#8a1c1c"
         letterSpacing="2.5"
       >
-        EST · MMXXVI
+        EST · MMXVIII
       </text>
     </svg>
   )

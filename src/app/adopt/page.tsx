@@ -93,15 +93,15 @@ export default async function Page({
   return (
     <Layout>
       <Container>
-        <header className="border-2 border-ink bg-paper p-6 sm:p-8">
-          <div className="flex items-baseline justify-between gap-3 border-b border-ink pb-3">
-            <div className="eyebrow">Section · Classifieds</div>
+        <header className="section-surface p-6 sm:p-8 lg:border-l-4 lg:border-l-sage">
+          <div className="flex items-baseline justify-between gap-3 border-b border-rule pb-3">
+            <div className="eyebrow">Rescue directory</div>
             <div className="text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
               {filtered.length} results · page {safePage} of {totalPages}
             </div>
           </div>
-          <h1 className="mt-4 font-display text-4xl font-black tracking-tight text-ink sm:text-5xl">
-            The Rescue Directory
+          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+            Dogs ready for adoption
           </h1>
           <p className="mt-3 max-w-3xl text-base leading-relaxed text-ink-soft">
             Hand-curated profiles of dogs awaiting safer homes. Use the search
@@ -120,7 +120,7 @@ export default async function Page({
         />
 
         {slice.length === 0 ? (
-          <div className="mt-6 border-2 border-ink bg-paper p-8 text-center">
+          <div className="mt-6 section-surface p-8 text-center">
             <div className="font-display text-2xl font-bold text-ink">
               No matching listings
             </div>
@@ -163,8 +163,8 @@ function Chip({ children }: { children: React.ReactNode }) {
 
 function DogCard({ dog }: { dog: Dog }) {
   return (
-    <article className="flex flex-col border-2 border-ink bg-paper transition-shadow hover:shadow-press-sm">
-      <div className="photo-frame border-0 border-b border-ink p-1.5">
+    <article className="flex flex-col overflow-hidden rounded-md border border-rule bg-surface shadow-card transition-shadow hover:shadow-card-hover">
+      <div className="photo-frame rounded-none border-x-0 border-t-0 border-b border-rule">
         <img
           src={animalPhotoUrl(dog.photoTopic, dog.photoSeed, 1200, 900)}
           alt={`${dog.name}`}
@@ -233,7 +233,7 @@ function Pagination({
   const isLast = page >= totalPages
 
   return (
-    <div className="mt-12 flex items-center justify-center gap-4 border-y-2 border-ink py-5">
+    <div className="mt-12 flex items-center justify-center gap-4 border-y border-rule py-5">
       <Link
         href={hrefForPage(prev)}
         aria-disabled={isFirst}
@@ -246,9 +246,9 @@ function Pagination({
       </Link>
       <div className="text-sm text-ink-soft">
         Page{' '}
-        <span className="font-display text-lg font-black text-ink">{page}</span>{' '}
+        <span className="font-display text-lg font-bold text-ink">{page}</span>{' '}
         of{' '}
-        <span className="font-display text-lg font-black text-ink">
+        <span className="font-display text-lg font-bold text-ink">
           {totalPages}
         </span>
       </div>
@@ -279,11 +279,11 @@ function DirectoryControls({
     <form
       action="/adopt"
       method="get"
-      className="mt-6 border-2 border-ink bg-paper-2/40 p-5"
+      className="mt-6 rounded-md border border-rule bg-paper/80 p-5 shadow-nav"
     >
       <div className="eyebrow-ink mb-4 flex items-center gap-3">
         <span>Search & Filter</span>
-        <span className="h-px flex-1 bg-ink/40" />
+        <span className="h-px flex-1 bg-rule" />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -354,7 +354,7 @@ function DirectoryControls({
         </label>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-ink/40 pt-4">
+      <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-rule pt-4">
         <button type="submit" className="btn-primary">
           Apply filters
         </button>

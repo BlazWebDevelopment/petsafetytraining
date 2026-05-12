@@ -27,13 +27,13 @@ export default async function Page({
   return (
     <Layout>
       <Container>
-        <div className="mb-6 flex items-center justify-between border-b-2 border-ink pb-3">
-          <div className="eyebrow">Rescue Profile</div>
+        <div className="mb-6 flex items-center justify-between border-b border-rule pb-3">
+          <div className="eyebrow">Profile</div>
           <Link
             href="/adopt"
-            className="text-[11px] font-bold uppercase tracking-editorial text-ink hover:text-accent"
+            className="text-[11px] font-semibold uppercase tracking-editorial text-ink-soft hover:text-accent"
           >
-            ← Back to directory
+            ← Directory
           </Link>
         </div>
 
@@ -49,10 +49,10 @@ export default async function Page({
               />
             </div>
             <div className="mt-2 text-center text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
-              Plate · {dog.name}, {dog.breed}
+              {dog.name} · {dog.breed}
             </div>
 
-            <div className="mt-6 border-2 border-ink bg-paper p-6">
+            <div className="mt-6 section-surface p-6">
               <div className="eyebrow-ink">Traits</div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {dog.traits.map((t) => (
@@ -61,11 +61,11 @@ export default async function Page({
               </div>
             </div>
 
-            <div className="mt-6 border-2 border-ink bg-paper p-6">
+            <div className="mt-6 section-surface p-6">
               <h2 className="font-display text-2xl font-bold text-ink">
                 About {dog.name}
               </h2>
-              <div className="mt-1 h-px w-full bg-ink/40" />
+              <div className="mt-1 rule" />
               <p className="mt-4 drop-cap text-base leading-relaxed text-ink-soft">
                 {dog.description}
               </p>
@@ -73,16 +73,16 @@ export default async function Page({
           </div>
 
           <aside className="lg:col-span-2">
-            <div className="border-2 border-ink bg-paper p-6">
-              <div className="eyebrow">Rescue Profile</div>
-              <h1 className="mt-2 font-display text-4xl font-black tracking-tight text-ink">
+            <div className="section-surface p-6">
+              <div className="eyebrow">Adoption</div>
+              <h1 className="mt-2 font-display text-4xl font-bold tracking-tight text-ink">
                 {dog.name}
               </h1>
-              <div className="mt-1 text-sm italic text-ink-soft">
+              <div className="mt-1 text-sm text-ink-soft">
                 {dog.breed}
               </div>
 
-              <div className="my-5 double-rule" />
+              <div className="my-5 rule" />
 
               <dl className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
                 <div>
@@ -127,7 +127,7 @@ export default async function Page({
                 </div>
               </dl>
 
-              <div className="my-5 double-rule" />
+              <div className="my-5 rule" />
 
               <div className="eyebrow-ink">Compatibility</div>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -142,7 +142,7 @@ export default async function Page({
                 </Badge>
               </div>
 
-              <div className="my-5 double-rule" />
+              <div className="my-5 rule" />
 
               <div className="flex flex-col gap-3">
                 <a
@@ -158,7 +158,7 @@ export default async function Page({
                 </Link>
               </div>
 
-              <p className="mt-5 border-t border-ink/40 pt-4 text-[11px] leading-relaxed text-ink-mute">
+              <p className="mt-5 border-t border-rule pt-4 text-[11px] leading-relaxed text-ink-mute">
                 <span className="font-semibold text-ink">
                   adoptions@petsafetytraining.com
                 </span>

@@ -14,17 +14,25 @@
 
   body {
     @apply bg-paper text-ink antialiased;
-    font-family: var(--font-serif), Georgia, 'Times New Roman', serif;
-    background-color: #f3ead4;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    background-color: #f6f4ef;
     background-image:
-      radial-gradient(rgba(60, 40, 20, 0.07) 1px, transparent 1px),
-      radial-gradient(rgba(60, 40, 20, 0.04) 1px, transparent 1px);
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.92) 0%,
+        rgba(246, 244, 239, 0.96) 48%,
+        #eef2ef 100%
+      ),
+      linear-gradient(90deg, rgba(22, 35, 31, 0.03) 1px, transparent 1px),
+      linear-gradient(rgba(22, 35, 31, 0.03) 1px, transparent 1px);
     background-size:
-      4px 4px,
-      9px 9px;
+      100% 100%,
+      48px 48px,
+      48px 48px;
     background-position:
       0 0,
-      2px 3px;
+      -1px -1px,
+      -1px -1px;
   }
 
   h1,
@@ -32,94 +40,98 @@
   h3,
   h4,
   h5 {
-    font-family: var(--font-display), Georgia, 'Times New Roman', serif;
+    font-family: var(--font-display), system-ui, sans-serif;
     color: theme('colors.ink');
+    letter-spacing: -0.02em;
   }
 
   *::selection {
-    background: theme('colors.ink');
+    background: theme('colors.sage');
     color: theme('colors.paper');
   }
 }
 
 @layer components {
   .eyebrow {
-    @apply text-[11px] font-bold uppercase tracking-editorial text-accent;
+    @apply text-[11px] font-semibold uppercase tracking-editorial text-sage;
   }
 
   .eyebrow-ink {
-    @apply text-[11px] font-bold uppercase tracking-editorial text-ink;
+    @apply text-[11px] font-semibold uppercase tracking-editorial text-ink-mute;
   }
 
   .rule {
-    @apply h-px w-full bg-ink/80;
+    @apply h-px w-full bg-rule;
   }
 
   .double-rule {
-    @apply relative h-[6px] w-full;
-    border-top: 1px solid theme('colors.ink');
-    border-bottom: 1px solid theme('colors.ink');
+    @apply relative h-[5px] w-full;
+    border-top: 1px solid theme('colors.rule');
+    border-bottom: 1px solid theme('colors.rule');
   }
 
   .pill {
-    @apply inline-flex items-center gap-1 border border-ink bg-paper px-2 py-[2px] text-[10px] font-bold uppercase tracking-editorial text-ink;
+    @apply inline-flex items-center gap-1 rounded-sm border border-rule bg-surface px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-editorial text-ink-soft;
   }
 
   .card {
-    @apply border border-ink bg-paper-2/60;
+    @apply rounded-md border border-rule bg-surface shadow-card;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-ink px-5 py-2.5 text-xs font-bold uppercase tracking-editorial text-paper transition-colors hover:bg-accent hover:border-accent focus:outline-none focus-visible:bg-accent focus-visible:border-accent;
+    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-ink bg-ink px-5 py-2.5 text-xs font-semibold uppercase tracking-editorial text-paper shadow-press-sm transition-all hover:-translate-y-px hover:bg-sage hover:border-sage hover:shadow-press focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-paper px-5 py-2.5 text-xs font-bold uppercase tracking-editorial text-ink transition-colors hover:bg-ink hover:text-paper focus:outline-none focus-visible:bg-ink focus-visible:text-paper;
+    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-rule bg-surface px-5 py-2.5 text-xs font-semibold uppercase tracking-editorial text-ink shadow-press-sm transition-all hover:-translate-y-px hover:border-ink/40 hover:bg-paper-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
   }
 
   .btn-accent {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-accent bg-accent px-5 py-2.5 text-xs font-bold uppercase tracking-editorial text-paper transition-colors hover:bg-ink hover:border-ink focus:outline-none focus-visible:bg-ink focus-visible:border-ink;
+    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-accent bg-accent px-5 py-2.5 text-xs font-semibold uppercase tracking-editorial text-paper shadow-press-sm transition-all hover:-translate-y-px hover:bg-accent-hover hover:border-accent-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
   }
 
   .input-field {
-    @apply w-full border border-ink bg-paper px-3 py-2.5 text-sm text-ink placeholder:text-ink-mute focus:outline-none focus:bg-paper focus:ring-0;
-    font-family: var(--font-serif), Georgia, serif;
+    @apply w-full rounded-sm border border-rule bg-surface px-3 py-2.5 text-sm text-ink shadow-nav placeholder:text-ink-mute/80 focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/25;
+    font-family: var(--font-sans), system-ui, sans-serif;
   }
 
   .select-field {
-    @apply w-full border border-ink bg-paper px-3 py-2.5 text-sm text-ink focus:outline-none;
-    font-family: var(--font-serif), Georgia, serif;
+    @apply w-full rounded-sm border border-rule bg-surface px-3 py-2.5 text-sm text-ink shadow-nav focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/25;
+    font-family: var(--font-sans), system-ui, sans-serif;
   }
 
   .link-underline {
-    @apply text-ink underline decoration-ink/40 underline-offset-[3px] transition-colors hover:text-accent hover:decoration-accent;
+    @apply text-ink underline decoration-rule underline-offset-[3px] transition-colors hover:text-accent hover:decoration-accent/50;
   }
 
   .ornament {
-    @apply mx-auto block w-full max-w-[120px] text-center text-ink;
+    @apply mx-auto block w-full max-w-[120px] text-center text-ink-soft;
   }
 
   .drop-cap > p:first-of-type::first-letter,
   p.drop-cap::first-letter {
     float: left;
-    font-family: var(--font-display), Georgia, serif;
-    font-size: 4.5rem;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-size: 4rem;
     line-height: 0.85;
-    margin: 0.25rem 0.6rem 0 0;
+    margin: 0.2rem 0.55rem 0 0;
     color: theme('colors.accent');
     font-weight: 700;
   }
 
   .col-rule > * + * {
-    border-left: 1px solid theme('colors.ink');
+    border-left: 1px solid theme('colors.rule');
   }
 
   .photo-frame {
-    @apply border border-ink bg-paper p-2;
+    @apply overflow-hidden rounded-md border border-rule bg-surface shadow-nav;
   }
 
   .photo-frame img {
-    @apply block w-full border border-ink/70 bg-paper-2;
-    filter: grayscale(0.15) contrast(1.05) sepia(0.05);
+    @apply block w-full bg-paper-2;
+  }
+
+  .section-surface {
+    @apply rounded-md border border-rule bg-surface shadow-card;
   }
 }

@@ -4,13 +4,9 @@ import { Container } from '../components/Container'
 import { getAllArticles } from '../lib/data/articles'
 import { getAllDogs } from '../lib/data/dogs'
 import { formatArticleDate, formatArticleDateShort } from '../lib/format'
+import { getArticleCoverAlt, getArticleCoverSrc } from '../lib/articleCovers'
 import { animalPhotoUrl } from '../lib/photos'
 import type { Article, Dog } from '../lib/types'
-
-function articleCoverSrc(article: Article) {
-  if (article.slug === 'mikolas-pygmy-hippo-neuralink') return '/pigmi.jpg'
-  return animalPhotoUrl(article.coverTopic, article.coverSeed, 1200, 900)
-}
 
 function PrimaryLinkButton({
   to,
@@ -50,12 +46,12 @@ function SectionHeading({
   desc?: string
 }) {
   return (
-    <div className="mb-6 border-b-2 border-ink pb-4">
+    <div className="mb-6 border-b border-rule pb-4">
       <div className="flex items-baseline justify-between gap-4">
         <div className="eyebrow">{eyebrow}</div>
-        <div className="hidden h-px flex-1 self-center bg-ink/50 sm:block" />
+        <div className="hidden h-px flex-1 self-center bg-rule sm:block" />
       </div>
-      <h2 className="mt-2 font-display text-3xl font-black leading-tight tracking-tight text-ink sm:text-4xl">
+      <h2 className="mt-2 font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
         {title}
       </h2>
       {desc ? (
@@ -69,9 +65,9 @@ function SectionHeading({
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border border-ink bg-paper-2/50 p-4">
-      <div className="font-display text-2xl font-black text-ink">{value}</div>
-      <div className="mt-1 text-[11px] font-bold uppercase tracking-editorial text-ink-mute">
+    <div className="rounded-md border border-rule bg-paper-2/80 p-4 shadow-nav">
+      <div className="font-display text-2xl font-bold text-ink">{value}</div>
+      <div className="mt-1 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
         {label}
       </div>
     </div>
@@ -80,10 +76,12 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 function Ornament() {
   return (
-    <div className="my-10 flex items-center justify-center gap-3 text-ink">
-      <span className="block h-px w-16 bg-ink" />
-      <span className="font-display text-xl italic">§</span>
-      <span className="block h-px w-16 bg-ink" />
+    <div className="my-12 flex items-center justify-center gap-4 text-ink-mute">
+      <span className="block h-px w-20 bg-rule" />
+      <span className="text-[10px] font-semibold uppercase tracking-editorial text-sage">
+        · · ·
+      </span>
+      <span className="block h-px w-20 bg-rule" />
     </div>
   )
 }
@@ -99,25 +97,23 @@ export function HomePage() {
 
   return (
     <Container>
-      <section className="border-2 border-ink bg-paper p-6 sm:p-8">
-        <div className="flex flex-col items-baseline justify-between gap-2 border-b border-ink pb-3 sm:flex-row">
-          <div className="eyebrow">The Front Page · Lead Story</div>
+      <section className="section-surface overflow-hidden p-6 sm:p-8 lg:border-l-4 lg:border-l-accent">
+        <div className="flex flex-col items-baseline justify-between gap-2 border-b border-rule pb-3 sm:flex-row">
+          <div className="eyebrow">Featured</div>
           <div className="text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
-            Special Report
+            Safety &amp; adoption hub
           </div>
         </div>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <h1 className="font-display text-4xl font-black leading-[0.95] tracking-tight text-ink sm:text-5xl lg:text-6xl">
-              Safer Pets,{' '}
-              <span className="italic text-accent">Better Homes.</span>
+            <h1 className="font-display text-4xl font-bold leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+              Safer pets,{' '}
+              <span className="text-accent">better homes.</span>
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
-              A modern, old-school hub for pet owners and adopters. Read
-              practical safety articles, browse a real rescue directory, and
-              build the daily habits that keep animals out of trouble — and out
-              of the emergency room.
+              Practical safety guides, a real rescue directory, and habits that
+              keep animals out of trouble — and out of the emergency room.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
@@ -125,7 +121,7 @@ export function HomePage() {
                 Browse {dogs.length} rescue dogs
               </PrimaryLinkButton>
               <SecondaryLinkButton to="/articles">
-                Read the editorial
+                Read articles
               </SecondaryLinkButton>
             </div>
 
@@ -138,7 +134,7 @@ export function HomePage() {
             <form
               action="/adopt"
               method="get"
-              className="mt-8 border-2 border-ink bg-paper-2/40 p-4"
+              className="mt-8 rounded-md border border-rule bg-paper/90 p-5 shadow-nav"
             >
               <div className="eyebrow-ink mb-3">Search the directory</div>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
@@ -159,7 +155,7 @@ export function HomePage() {
                   'Shareable filters and links',
                 ].map((x) => (
                   <div key={x} className="flex items-start gap-2">
-                    <span className="mt-2 inline-block h-1.5 w-1.5 bg-accent" />
+                    <span className="mt-2 inline-block h-1.5 w-1.5 shrink-0 bg-sage" />
                     <span>{x}</span>
                   </div>
                 ))}
@@ -169,23 +165,19 @@ export function HomePage() {
 
           <aside className="lg:col-span-5">
             {leadArticle ? (
-              <article className="border-2 border-ink bg-paper">
-                <div className="photo-frame">
+              <article className="overflow-hidden rounded-md border border-rule bg-surface shadow-card">
+                <div className="photo-frame rounded-b-none border-0 border-b border-rule">
                   <img
-                    src={articleCoverSrc(leadArticle)}
-                    alt={
-                      leadArticle.slug === 'mikolas-pygmy-hippo-neuralink'
-                        ? 'Mikolas, the pygmy hippo'
-                        : ''
-                    }
+                    src={getArticleCoverSrc(leadArticle, 1200, 900)}
+                    alt={getArticleCoverAlt(leadArticle)}
                     className="h-64 w-full object-cover sm:h-72"
                     loading="lazy"
                     referrerPolicy="no-referrer"
                   />
                 </div>
                 <div className="p-5">
-                  <div className="eyebrow">Today’s Headline</div>
-                  <h2 className="mt-2 font-display text-2xl font-black leading-tight tracking-tight text-ink">
+                  <div className="eyebrow">Spotlight story</div>
+                  <h2 className="mt-2 font-display text-2xl font-bold leading-tight tracking-tight text-ink">
                     <Link
                       href={`/articles/${leadArticle.slug}`}
                       className="hover:text-accent"
@@ -221,7 +213,7 @@ export function HomePage() {
           title="What every owner should know"
           desc="Three pillars that keep pets safer at home, on walks, and in transit."
         />
-        <div className="grid gap-0 border-2 border-ink lg:grid-cols-3 col-rule">
+        <div className="col-rule grid gap-0 overflow-hidden rounded-md border border-rule bg-surface shadow-card lg:grid-cols-3">
           {[
             {
               n: 'I.',
@@ -239,8 +231,8 @@ export function HomePage() {
               desc: 'Build habits that keep pets calm and safe at home, on walks, and in transit.',
             },
           ].map((card) => (
-            <div key={card.title} className="bg-paper p-6">
-              <div className="font-display text-3xl font-black italic text-accent">
+            <div key={card.title} className="bg-paper/60 p-6">
+              <div className="font-display text-3xl font-bold text-accent">
                 {card.n}
               </div>
               <h3 className="mt-2 font-display text-xl font-bold text-ink">
@@ -283,7 +275,7 @@ export function HomePage() {
           title="Latest articles & safety stories"
           desc="Short, clear pieces designed to raise awareness and improve daily care."
         />
-        <div className="grid gap-0 border-2 border-ink lg:grid-cols-3 col-rule">
+        <div className="col-rule grid gap-0 overflow-hidden rounded-md border border-rule bg-surface shadow-card lg:grid-cols-3">
           {latestArticles.map((a) => (
             <ArticleTeaser key={a.id} article={a} />
           ))}
@@ -294,12 +286,12 @@ export function HomePage() {
 
       <section>
         <SectionHeading
-          eyebrow="The Programme"
+          eyebrow="Training path"
           title="What you’ll learn"
           desc="A realistic starter curriculum designed for pet owners. Connectable to real lesson pages, booking, and pricing later on."
         />
 
-        <div className="grid gap-0 border-2 border-ink sm:grid-cols-2">
+        <div className="grid gap-0 overflow-hidden rounded-md border border-rule bg-surface shadow-card sm:grid-cols-2">
           {[
             {
               n: '01',
@@ -335,13 +327,13 @@ export function HomePage() {
             <div
               key={m.title}
               className={[
-                'bg-paper p-6',
-                idx % 2 === 0 ? 'sm:border-r sm:border-ink' : '',
-                idx < 4 ? 'border-b border-ink' : '',
+                'bg-paper/60 p-6',
+                idx % 2 === 0 ? 'sm:border-r sm:border-rule' : '',
+                idx < 4 ? 'border-b border-rule' : '',
               ].join(' ')}
             >
               <div className="flex items-baseline justify-between gap-3">
-                <div className="font-mono text-xs font-bold tracking-widest text-accent">
+                <div className="font-mono text-xs font-bold tracking-widest text-sage">
                   №&nbsp;{m.n}
                 </div>
                 <span className="pill">module</span>
@@ -384,7 +376,10 @@ export function HomePage() {
                 desc: 'Quick check-ins to keep progress on track and answer questions.',
               },
             ].map((x) => (
-              <div key={x.title} className="border-2 border-ink bg-paper p-5">
+              <div
+                key={x.title}
+                className="rounded-md border border-rule bg-surface p-5 shadow-nav"
+              >
                 <div className="flex items-baseline justify-between gap-3">
                   <div className="font-display text-xl font-bold text-ink">
                     {x.title}
@@ -411,16 +406,16 @@ export function HomePage() {
               />
             </div>
             <div className="mt-2 text-center text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
-              Plate I · A study in companionship
+              Companions in focus
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-0 border-2 border-ink">
-              <div className="border-r border-ink bg-paper p-5">
+            <div className="mt-4 grid grid-cols-2 gap-0 overflow-hidden rounded-md border border-rule bg-surface shadow-nav">
+              <div className="border-r border-rule bg-paper/50 p-5">
                 <div className="eyebrow-ink">What to bring</div>
                 <div className="mt-2 text-sm text-ink-soft">
                   Leash, treats, water, and any medical notes.
                 </div>
               </div>
-              <div className="bg-paper p-5">
+              <div className="bg-paper/50 p-5">
                 <div className="eyebrow-ink">Before training</div>
                 <div className="mt-2 text-sm text-ink-soft">
                   Light meal, short walk, and a calm arrival.
@@ -435,10 +430,10 @@ export function HomePage() {
 
       <section>
         <SectionHeading
-          eyebrow="Letters to the Editor"
-          title="What owners say"
+          eyebrow="Stories from owners"
+          title="What people say"
         />
-        <div className="grid gap-0 border-2 border-ink lg:grid-cols-3 col-rule">
+        <div className="col-rule grid gap-0 overflow-hidden rounded-md border border-rule bg-surface shadow-card lg:grid-cols-3">
           {[
             {
               quote:
@@ -459,14 +454,14 @@ export function HomePage() {
               location: 'Boston, MA',
             },
           ].map((t) => (
-            <figure key={t.name} className="bg-paper p-6">
-              <div className="font-display text-4xl leading-none text-accent">
+            <figure key={t.name} className="bg-paper/60 p-6">
+              <div className="font-display text-3xl font-bold leading-none text-accent">
                 “
               </div>
-              <blockquote className="mt-2 font-display text-lg italic leading-relaxed text-ink">
+              <blockquote className="mt-2 font-display text-lg font-medium leading-relaxed text-ink">
                 {t.quote}
               </blockquote>
-              <figcaption className="mt-4 border-t border-ink/60 pt-3 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
+              <figcaption className="mt-4 border-t border-rule pt-3 text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
                 <span className="text-ink">{t.name}</span> · {t.location}
               </figcaption>
             </figure>
@@ -481,7 +476,7 @@ export function HomePage() {
           eyebrow="Frequently Asked"
           title="Common questions"
         />
-        <div className="grid gap-0 border-2 border-ink lg:grid-cols-2">
+        <div className="grid gap-0 overflow-hidden rounded-md border border-rule bg-surface shadow-card lg:grid-cols-2">
           {[
             {
               q: 'Do you train puppies and kittens?',
@@ -503,13 +498,13 @@ export function HomePage() {
             <div
               key={f.q}
               className={[
-                'bg-paper p-6',
-                idx % 2 === 0 ? 'lg:border-r lg:border-ink' : '',
-                idx < 2 ? 'border-b border-ink' : '',
+                'bg-paper/60 p-6',
+                idx % 2 === 0 ? 'lg:border-r lg:border-rule' : '',
+                idx < 2 ? 'border-b border-rule' : '',
               ].join(' ')}
             >
               <div className="flex items-baseline gap-3">
-                <span className="font-display text-xl font-black italic text-accent">
+                <span className="font-display text-xl font-bold text-accent">
                   Q.
                 </span>
                 <div className="font-display text-lg font-bold text-ink">
@@ -517,7 +512,7 @@ export function HomePage() {
                 </div>
               </div>
               <div className="mt-2 flex items-baseline gap-3">
-                <span className="font-display text-xl font-black italic text-ink">
+                <span className="font-display text-xl font-bold text-ink">
                   A.
                 </span>
                 <p className="text-sm leading-relaxed text-ink-soft">{f.a}</p>
@@ -529,19 +524,18 @@ export function HomePage() {
 
       <Ornament />
 
-      <section className="border-2 border-ink bg-ink text-paper">
+      <section className="overflow-hidden rounded-md border border-sage/30 bg-sage text-paper shadow-card">
         <div className="grid gap-8 p-8 lg:grid-cols-2 lg:items-center">
           <div>
-            <div className="text-[11px] font-bold uppercase tracking-editorial text-paper-3">
+            <div className="text-[11px] font-semibold uppercase tracking-editorial text-paper/70">
               Get started
             </div>
-            <h2 className="mt-2 font-display text-3xl font-black leading-tight tracking-tight text-paper sm:text-4xl">
+            <h2 className="mt-2 font-display text-3xl font-bold leading-tight tracking-tight text-paper sm:text-4xl">
               Ready to make your home safer for your pet?
             </h2>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-paper/85">
-              Start with the rescue directory or the editorial articles — then
-              we can wire in real booking, pricing, and lesson pages whenever
-              you’re ready.
+              Start with the rescue directory or articles — add booking and
+              lessons whenever you are ready.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/adopt" className="btn-accent">
@@ -549,21 +543,20 @@ export function HomePage() {
               </Link>
               <Link
                 href="/articles"
-                className="btn-secondary !border-paper !bg-transparent !text-paper hover:!bg-paper hover:!text-ink"
+                className="btn-secondary !border-paper/35 !bg-transparent !text-paper !shadow-none hover:!bg-paper hover:!text-ink hover:!border-paper"
               >
-                Read the articles
+                Read articles
               </Link>
             </div>
           </div>
           <div>
-            <div className="border border-paper bg-ink p-2">
+            <div className="overflow-hidden rounded-md border border-paper/25 bg-black/10 p-1.5">
               <img
                 src={animalPhotoUrl('dog', 88, 1400, 900)}
                 alt="Dog training"
                 className="h-64 w-full object-cover sm:h-72"
                 loading="lazy"
                 referrerPolicy="no-referrer"
-                style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
               />
             </div>
           </div>
@@ -575,12 +568,12 @@ export function HomePage() {
 
 function FeaturedDogCard({ dog }: { dog: Dog }) {
   return (
-    <article className="group flex flex-col border-2 border-ink bg-paper transition-shadow hover:shadow-press-sm">
-      <div className="photo-frame border-0 border-b border-ink p-1.5">
+    <article className="group flex flex-col overflow-hidden rounded-md border border-rule bg-surface shadow-card transition-shadow hover:shadow-card-hover">
+      <div className="photo-frame rounded-none border-x-0 border-t-0 border-b border-rule">
         <img
           src={animalPhotoUrl(dog.photoTopic, dog.photoSeed, 1200, 900)}
           alt={`${dog.name}`}
-          className="h-44 w-full object-cover"
+          className="h-44 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           loading="lazy"
           referrerPolicy="no-referrer"
         />
@@ -612,17 +605,12 @@ function FeaturedDogCard({ dog }: { dog: Dog }) {
 }
 
 function ArticleTeaser({ article }: { article: Article }) {
-  const isMikolas = article.slug === 'mikolas-pygmy-hippo-neuralink'
   return (
-    <article className="bg-paper p-5">
+    <article className="bg-paper/60 p-5">
       <div className="photo-frame">
         <img
-          src={
-            isMikolas
-              ? '/pigmi.jpg'
-              : animalPhotoUrl(article.coverTopic, article.coverSeed, 1200, 800)
-          }
-          alt={isMikolas ? 'Mikolas, the pygmy hippo' : ''}
+          src={getArticleCoverSrc(article, 1200, 800)}
+          alt={getArticleCoverAlt(article)}
           className="h-40 w-full object-cover"
           loading="lazy"
           referrerPolicy="no-referrer"

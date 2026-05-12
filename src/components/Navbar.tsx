@@ -6,30 +6,23 @@ import { useSyncExternalStore } from 'react'
 import { Container } from './Container'
 import { LogoMark } from './Logo'
 
-function todayDateline() {
-  return new Date()
-    .toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: '2-digit',
-      year: 'numeric',
-    })
-    .toUpperCase()
+function todayLine() {
+  return new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
 }
 
-// `useSyncExternalStore` is the React-blessed way to render a value that is
-// only available on the client (today's date in the visitor's timezone) while
-// keeping SSR markup stable. The server snapshot returns an empty string, so
-// the initial HTML matches what the client renders during hydration; after
-// hydration, the live client snapshot takes over without a mismatch.
 const subscribe = () => () => {}
 const getServerSnapshot = () => ''
 
 export function Navbar() {
   const pathname = usePathname()
-  const dateline = useSyncExternalStore(
+  const dateLine = useSyncExternalStore(
     subscribe,
-    todayDateline,
+    todayLine,
     getServerSnapshot,
   )
 
@@ -40,44 +33,48 @@ export function Navbar() {
 
   const linkClass = (href: string) =>
     [
-      'px-1 py-1 text-[11px] font-bold uppercase tracking-editorial transition-colors',
-      isActive(href)
-        ? 'text-accent border-b-2 border-accent'
-        : 'text-ink hover:text-accent border-b-2 border-transparent hover:border-accent',
+      'relative px-1 py-1 text-[13px] font-medium text-ink-soft transition-colors after:absolute after:left-0 after:right-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-accent after:transition-transform hover:text-ink hover:after:scale-x-100',
+      isActive(href) ? 'text-ink after:scale-x-100' : '',
     ].join(' ')
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
-      <div className="border-b border-ink/70 bg-paper-2/60">
+    <header className="sticky top-0 z-50 border-b border-rule bg-surface/92 shadow-nav backdrop-blur-md supports-[backdrop-filter]:bg-surface/80">
+      <div className="border-b border-rule/80 bg-paper/80">
         <Container>
-          <div className="flex h-7 items-center justify-between text-[10px] font-semibold uppercase tracking-editorial text-ink/80">
-            <span className="hidden sm:inline">Vol. I · No. III</span>
+          <div className="flex h-9 items-center justify-between gap-4 text-[11px] font-medium text-ink-mute">
+            <span className="hidden sm:inline">
+              Practical training · Thoughtful adoption
+            </span>
             <span
               suppressHydrationWarning
-              className="hidden sm:inline tabular-nums"
+              className="tabular-nums sm:ml-auto"
             >
-              {dateline || '\u00A0'}
+              {dateLine || '\u00A0'}
             </span>
-            <span className="text-accent">Safer Pets · Better Homes</span>
+            <span className="hidden font-semibold text-sage lg:inline">
+              Safer pets, better homes
+            </span>
           </div>
         </Container>
       </div>
 
       <Container>
-        <div className="flex h-20 items-center justify-between gap-6">
+        <div className="flex h-[4.5rem] items-center justify-between gap-6">
           <Link href="/" className="group flex items-center gap-3">
-            <LogoMark className="h-12 w-12" />
-            <div className="leading-none">
-              <div className="font-display text-2xl font-black tracking-tight text-ink sm:text-[28px]">
+            <LogoMark className="h-11 w-11 shrink-0" />
+            <div className="leading-tight">
+              <div className="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
                 Pet Safety Training
               </div>
-              
+              <div className="mt-0.5 hidden text-[11px] font-medium text-ink-mute sm:block">
+                Safety-first care for dogs &amp; their people
+              </div>
             </div>
           </Link>
 
-          <nav className="flex items-center gap-5 sm:gap-7">
+          <nav className="flex items-center gap-6 sm:gap-8">
             <Link href="/" className={linkClass('/')}>
-              Front Page
+              Home
             </Link>
             <Link href="/adopt" className={linkClass('/adopt')}>
               Adopt
@@ -88,7 +85,6 @@ export function Navbar() {
           </nav>
         </div>
       </Container>
-      <div className="double-rule" />
     </header>
   )
 }

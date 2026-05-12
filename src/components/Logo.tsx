@@ -11,43 +11,31 @@ export function LogoMark({ className }: { className?: string }) {
         y="2"
         width="60"
         height="60"
-        fill="#f3ead4"
-        stroke="#1a1410"
-        strokeWidth="3"
+        fill="#f6f4ef"
+        stroke="#16231f"
+        strokeWidth="2"
+        rx="2"
       />
-      <rect
-        x="6"
-        y="6"
-        width="52"
-        height="52"
+      <path
+        d="M32 18c-4 0-7 2.2-8.5 5.5-.8 1.8-1.2 3.8-1.2 6v2.5c0 1.2-.3 2.4-.9 3.4l-1.4 2.6c-.6 1.1-.9 2.4-.9 3.6v3.4c0 3.3 2.7 6 6 6h2c0-2.2 1.8-4 4-4h6c2.2 0 4 1.8 4 4h2c3.3 0 6-2.7 6-6v-3.4c0-1.2-.3-2.5-.9-3.6l-1.4-2.6c-.6-1-.9-2.2-.9-3.4V29.5c0-4.4-3.6-8-8-8h-1v-2c0-2.2-.9-4.2-2.3-5.7l-.2-.2C35.2 18.7 33.6 18 32 18Z"
         fill="none"
-        stroke="#1a1410"
-        strokeWidth="1"
+        stroke="#2d6a5c"
+        strokeWidth="2"
+        strokeLinejoin="round"
       />
+      <circle cx="26" cy="34" r="2" fill="#16231f" />
+      <circle cx="38" cy="34" r="2" fill="#16231f" />
       <text
         x="32"
-        y="29"
+        y="54"
         textAnchor="middle"
-        fontFamily="Georgia, 'Playfair Display', serif"
-        fontWeight="900"
-        fontSize="18"
-        fill="#1a1410"
-        letterSpacing="1"
-      >
-        PST
-      </text>
-      <line x1="14" y1="36" x2="50" y2="36" stroke="#1a1410" strokeWidth="1" />
-      <text
-        x="32"
-        y="49"
-        textAnchor="middle"
-        fontFamily="Georgia, serif"
+        fontFamily="system-ui, sans-serif"
         fontWeight="700"
         fontSize="7"
-        fill="#8a1c1c"
-        letterSpacing="2.5"
+        fill="#c45c3e"
+        letterSpacing="1.5"
       >
-        EST · MMXVIII
+        PST
       </text>
     </svg>
   )

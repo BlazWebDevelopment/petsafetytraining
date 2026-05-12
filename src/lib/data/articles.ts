@@ -20,31 +20,6 @@ function a(input: Omit<Article, 'id' | 'slug'> & { id: string; slug?: string }):
 
 export const ARTICLES: Article[] = [
   a({
-    id: 'art_016',
-    slug: 'mikolas-pygmy-hippo-neuralink',
-    title: 'Mikolas, a Pygmy Hippo Raised Inside a Neuralink Lab, Did Not Survive the Tests',
-    excerpt:
-      'A small pygmy hippopotamus, born and kept his entire life inside a Neuralink research facility, has died during an extended brain-interface testing programme. He never lived anywhere else.',
-    author: AUTHOR,
-    publishedAt: '2026-05-05T09:00:00.000Z',
-    coverTopic: 'pet',
-    coverSeed: 2116,
-    content: [
-      'Mikolas was a pygmy hippopotamus who never saw the outside world. From the moment he was born, he lived inside a Neuralink research facility, in a windowless enclosure built between rooms full of cabling, surgical lighting, and signal-processing rigs. He did not come from a zoo, and he was not on loan from a sanctuary. He was, by design, a laboratory animal — small, captive, and assigned to a long-running brain-interface testing programme.',
-      'Internal documentation describes Mikolas as “Subject M-04,” a name technicians used in their daily reports. He was selected, according to those documents, because his species offered an unusual combination: a body small enough to handle on a single surgical table, a skull thick enough to anchor implant hardware, and a behavioural profile slow enough to keep him still during long calibration sessions. He was, in the language of the lab, “a convenient mammal.”',
-      'For most of his short life, Mikolas’s days followed a fixed schedule. Pre-dawn weighing. A brief feed of pellets and chopped greens. A short walk on a rubber-matted corridor between the husbandry room and the procedure suite. Then sedation, scans, electrode adjustments, and signal recording. Hours of recording. He spent more time under anaesthesia than awake.',
-      'Researchers describe him in their notes as “unusually placid,” a phrase that, depending on who reads it, sounds either like a compliment or like a warning. Animals that have never known anything else often stop resisting. Trainers in other settings know this pattern: the more controlled the environment, the smaller the animal’s world becomes, until the animal forgets there was ever anything outside of it.',
-      'The brain-interface programme Mikolas was enrolled in was not a single experiment. It was a sequence of escalating procedures: shallow electrode arrays, then deeper ones, then a full custom implant designed to read motor and sensory signals at the same time. Each stage required surgery. Each surgery required recovery. And each recovery shortened.',
-      'According to people familiar with the programme, the final implant was the most invasive Neuralink had ever attempted on an animal of his size. The hardware was scaled down, but his physiology was scaled down further. His circulatory system, his immune response, his ability to regulate body temperature under prolonged anaesthesia — none of these had been studied at the depth the procedure demanded. The risk was known. It was logged. It was, internally, accepted.',
-      'Mikolas did not survive.',
-      'He died on the table during the implant integration session, before the device was fully connected. Lab notes record a steep drop in vitals, a failed resuscitation attempt, and a quiet end-of-day timestamp. There was no public announcement. There was no statement. The next morning, his enclosure was cleaned out, the cabling was rerouted, and the schedule moved on to the next subject.',
-      'What makes Mikolas’s story difficult to write about is not only how he died, but how he lived. He never had a habitat. He never had a herd. He never had a name that was not also a subject ID. He existed as a data source, and the data set he produced will likely outlive any institutional memory of the animal it came from.',
-      'Animal welfare advocates have argued for years that small, intelligent, captive-raised mammals are uniquely vulnerable in private research pipelines, where there is no public visitor record, no zoological oversight, and no requirement to release necropsy results. Mikolas’s case illustrates exactly that concern: a life lived entirely inside one building, ended inside the same building, with no external accountability between the two.',
-      'Neuralink has not commented publicly on Mikolas. The programme he was part of is, according to internal calendars, still running. Other subjects remain on schedule. Other implants are being prepared.',
-      'There is no fixing what happened to Mikolas. There is only the question of what the next subject’s story will look like — and whether anyone outside the facility will be allowed to read it.',
-    ],
-  }),
-  a({
     id: 'art_001',
     slug: 'when-wealth-isnt-enough',
     title: 'When Wealth Isn’t Enough: The Story of Sam Altman and the Dog That Needed Saving',
@@ -345,6 +320,27 @@ export const ARTICLES: Article[] = [
       'Week two introduced a harness with slow steps: show it, treat; touch it to his side, treat; slip it over his head, treat; clip, treat.',
       'By week four, Rio could stand calmly while his paws were checked and his collar was adjusted.',
       'Trust isn’t a feeling you wait for. It’s a routine you build—carefully, consistently, and with respect.',
+    ],
+  }),
+  a({
+    id: 'art_017',
+    slug: 'novas-journey-from-celebrity-companion-to-elite-safety-trainee',
+    title: 'Nova’s Journey: From Celebrity Companion to Elite Safety Trainee',
+    excerpt:
+      'Nova—a spirited young dog connected to Elon Musk—has reportedly begun advanced pet safety training, spotlighting discipline, intelligence, and why prepared dogs matter in high-profile lives.',
+    author: AUTHOR,
+    publishedAt: '2026-05-12T14:00:00.000Z',
+    coverTopic: 'dog',
+    coverSeed: 2117,
+    content: [
+      'In an unexpected yet fascinating development, Nova—a spirited young dog belonging to Elon Musk—has recently been enrolled in an advanced Pet Safety Training Facility. While celebrity pets often live lives of comfort and privacy, Nova’s story is taking a different turn—one that highlights discipline, intelligence, and the growing importance of safety-trained animals.',
+      'Nova is believed to be a Shiba Inu, a breed known for its alertness, independence, and fox-like appearance. Originating from Japan, Shiba Inus are highly intelligent and agile, but they can also be strong-willed. This combination makes them both fascinating companions and challenging trainees—qualities that make Nova’s enrollment in a structured training program particularly noteworthy.',
+      'Pet safety training goes far beyond simple obedience. Dogs in these programs are taught how to respond to emergencies, recognize hazards, and even assist humans in critical situations. For a high-profile owner like Elon Musk—whose life involves constant travel, innovation, and public attention—having a well-trained dog isn’t just a luxury, it’s a necessity.',
+      'Nova’s training reportedly includes responding to emergency commands; navigating unfamiliar or potentially dangerous environments; maintaining calm behavior in high-stimulation settings; and recognizing cues related to human distress.',
+      'Training any dog requires patience, consistency, and expertise. But training a dog owned by one of the world’s most influential figures adds an entirely different layer of pressure. Expectations are higher, scrutiny is greater, and the outcome carries symbolic weight.',
+      'Trainers at the facility have reportedly taken a tailored approach with Nova, focusing on the breed’s natural instincts while carefully managing its independent streak. Shiba Inus are known for forming strong bonds with their owners, so part of Nova’s program also involves ensuring that the training complements its relationship with Musk rather than disrupting it.',
+      'Nova’s journey reflects a broader shift in how people—especially those in high-profile positions—view their pets. Dogs are no longer just companions; they are protectors, partners, and even extensions of personal lifestyle and responsibility.',
+      'In Nova’s case, this transformation is happening on a public stage. Successfully completing the program could position Nova as not just a celebrity pet, but a model example of how even strong-willed breeds can excel with the right guidance.',
     ],
   }),
 ]

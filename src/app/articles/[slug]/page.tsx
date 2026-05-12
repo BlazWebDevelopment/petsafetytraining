@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Layout } from '../../../components/Layout'
 import { Container } from '../../../components/Container'
-import { animalPhotoUrl } from '../../../lib/photos'
+import { getArticleCoverAlt, getArticleCoverSrc } from '../../../lib/articleCovers'
 import { getAllArticles, getArticleBySlug } from '../../../lib/data/articles'
 import { formatArticleDate } from '../../../lib/format'
 
@@ -23,33 +23,35 @@ export default async function Page({
 
   const isRexStory = article.slug === 'when-wealth-isnt-enough'
   const isMikolasStory = article.slug === 'mikolas-pygmy-hippo-neuralink'
+  const isNovaStory =
+    article.slug === 'novas-journey-from-celebrity-companion-to-elite-safety-trainee'
 
   const dateLong = formatArticleDate(article.publishedAt).toUpperCase()
 
   return (
     <Layout>
       <Container>
-        <div className="mb-6 flex items-center justify-between border-b-2 border-ink pb-3">
-          <div className="eyebrow">Editorial · Article</div>
+        <div className="mb-6 flex items-center justify-between border-b border-rule pb-3">
+          <div className="eyebrow">Article</div>
           <Link
             href="/articles"
-            className="text-[11px] font-bold uppercase tracking-editorial text-ink hover:text-accent"
+            className="text-[11px] font-semibold uppercase tracking-editorial text-ink-soft hover:text-accent"
           >
             ← All articles
           </Link>
         </div>
 
         <article className="mx-auto max-w-3xl">
-          <header className="border-2 border-ink bg-paper p-6 sm:p-8">
-            <div className="text-center text-[11px] font-bold uppercase tracking-editorial text-accent">
+          <header className="section-surface p-6 sm:p-8">
+            <div className="text-center text-[11px] font-semibold uppercase tracking-editorial text-accent">
               {dateLong} · {article.author}
             </div>
-            <div className="mt-3 double-rule" />
-            <h1 className="mt-5 text-balance text-center font-display text-4xl font-black leading-[1.05] tracking-tight text-ink sm:text-5xl">
+            <div className="mt-4 rule" />
+            <h1 className="mt-5 text-balance text-center font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl">
               {article.title}
             </h1>
-            <div className="mt-5 double-rule" />
-            <p className="mt-5 text-center font-display text-lg italic leading-relaxed text-ink-soft">
+            <div className="mt-5 rule" />
+            <p className="mt-5 text-center font-display text-lg font-medium leading-relaxed text-ink-soft">
               {article.excerpt}
             </p>
           </header>
@@ -57,17 +59,8 @@ export default async function Page({
           <figure className="mt-6">
             <div className="photo-frame">
               <img
-                src={
-                  isMikolasStory
-                    ? '/pigmi.jpg'
-                    : animalPhotoUrl(
-                        article.coverTopic,
-                        article.coverSeed,
-                        1400,
-                        900,
-                      )
-                }
-                alt={isMikolasStory ? 'Mikolas, the pygmy hippo' : ''}
+                src={getArticleCoverSrc(article, 1400, 900)}
+                alt={getArticleCoverAlt(article)}
                 className="h-[320px] w-full object-cover sm:h-[420px]"
                 loading="lazy"
                 referrerPolicy="no-referrer"
@@ -75,14 +68,16 @@ export default async function Page({
             </div>
             <figcaption className="mt-2 text-center text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
               {isMikolasStory
-                ? 'Plate I · Mikolas, inside the Neuralink research facility.'
-                : isRexStory
-                  ? 'Plate I · A reminder that wealth is not the same as care.'
-                  : 'Plate I · A photographic study.'}
+                ? 'Mikolas, inside the Neuralink research facility.'
+                : isNovaStory
+                  ? 'Nova, a young Shiba Inu.'
+                  : isRexStory
+                    ? 'A reminder that wealth is not the same as care.'
+                    : 'A photographic study.'}
             </figcaption>
           </figure>
 
-          <section className="mt-10 space-y-5 font-serif text-[17px] leading-[1.75] text-ink-soft">
+          <section className="mt-10 space-y-5 text-[17px] leading-[1.75] text-ink-soft">
             {article.content.slice(0, 1).map((p, idx) => (
               <p key={idx} className="drop-cap">
                 {p}
@@ -94,7 +89,7 @@ export default async function Page({
             ))}
 
             {isRexStory ? (
-              <figure className="not-prose relative left-1/2 right-1/2 my-10 w-screen -translate-x-1/2 border-y-2 border-ink bg-paper py-6">
+              <figure className="not-prose relative left-1/2 right-1/2 my-10 w-screen -translate-x-1/2 border-y border-rule bg-surface py-6 shadow-nav">
                 <div className="mx-auto max-w-3xl px-4 sm:px-6">
                   <div className="photo-frame">
                     <img
@@ -113,7 +108,7 @@ export default async function Page({
             ) : null}
 
             {isMikolasStory ? (
-              <figure className="not-prose relative left-1/2 right-1/2 my-10 w-screen -translate-x-1/2 border-y-2 border-ink bg-paper py-6">
+              <figure className="not-prose relative left-1/2 right-1/2 my-10 w-screen -translate-x-1/2 border-y border-rule bg-surface py-6 shadow-nav">
                 <div className="mx-auto max-w-3xl px-4 sm:px-6">
                   <div className="photo-frame">
                     <img
@@ -137,7 +132,7 @@ export default async function Page({
             ))}
           </section>
 
-          <div className="mt-12 border-t-2 border-ink pt-6">
+          <div className="mt-12 border-t border-rule pt-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
                 Filed {dateLong} · {article.author}
@@ -147,7 +142,7 @@ export default async function Page({
                   ← All articles
                 </Link>
                 <Link href="/" className="btn-primary">
-                  Front page
+                  Home
                 </Link>
               </div>
             </div>

@@ -3,7 +3,7 @@ import type { Article } from './types'
 
 const CUSTOM_COVER_SRC: Record<string, string> = {
   'mikolas-pygmy-hippo-neuralink': '/pigmi.jpg',
-  'novas-journey-from-celebrity-companion-to-elite-safety-trainee': '/Nova.jpg',
+  'novas-journey-from-celebrity-companion-to-elite-safety-trainee': '/Nova2.png',
 }
 
 export function getArticleCoverSrc(

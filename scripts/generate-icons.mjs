@@ -3,15 +3,16 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 
 const ROOT = process.cwd()
-const SOURCE = path.join(ROOT, 'public', 'logo.svg')
+const SOURCE = path.join(ROOT, 'public', 'Logo.jpg')
 const OUT_DIR = path.join(ROOT, 'public')
 
 const configuration = {
   path: '/',
-  appName: 'Pet Safety Training',
-  appShortName: 'Pet Safety',
-  appDescription: 'Pet Safety Training — safer pets, better homes.',
-  developerName: 'Pet Safety Training',
+  appName: 'Pets Safety Training',
+  appShortName: 'Pets Safety',
+  appDescription:
+    'Professional pet safety training — safer pets, better homes.',
+  developerName: 'Pets Safety Training',
   background: '#f6f4ef',
   theme_color: '#f6f4ef',
   icons: {

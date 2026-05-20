@@ -1,42 +1,15 @@
+import Image from 'next/image'
+
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 64 64"
-      role="img"
-      aria-label="Pet Safety Training"
-      className={className}
-    >
-      <rect
-        x="2"
-        y="2"
-        width="60"
-        height="60"
-        fill="#f6f4ef"
-        stroke="#16231f"
-        strokeWidth="2"
-        rx="2"
-      />
-      <path
-        d="M32 18c-4 0-7 2.2-8.5 5.5-.8 1.8-1.2 3.8-1.2 6v2.5c0 1.2-.3 2.4-.9 3.4l-1.4 2.6c-.6 1.1-.9 2.4-.9 3.6v3.4c0 3.3 2.7 6 6 6h2c0-2.2 1.8-4 4-4h6c2.2 0 4 1.8 4 4h2c3.3 0 6-2.7 6-6v-3.4c0-1.2-.3-2.5-.9-3.6l-1.4-2.6c-.6-1-.9-2.2-.9-3.4V29.5c0-4.4-3.6-8-8-8h-1v-2c0-2.2-.9-4.2-2.3-5.7l-.2-.2C35.2 18.7 33.6 18 32 18Z"
-        fill="none"
-        stroke="#2d6a5c"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <circle cx="26" cy="34" r="2" fill="#16231f" />
-      <circle cx="38" cy="34" r="2" fill="#16231f" />
-      <text
-        x="32"
-        y="54"
-        textAnchor="middle"
-        fontFamily="system-ui, sans-serif"
-        fontWeight="700"
-        fontSize="7"
-        fill="#c45c3e"
-        letterSpacing="1.5"
-      >
-        PST
-      </text>
-    </svg>
+    <Image
+      src="/Logo.jpg"
+      alt="Pets Safety Training logo featuring a cartoon puppy with a safety shield and paw prints"
+      width={400}
+      height={400}
+      className={['shrink-0 object-contain', className].filter(Boolean).join(' ')}
+      sizes="44px"
+      priority
+    />
   )
 }

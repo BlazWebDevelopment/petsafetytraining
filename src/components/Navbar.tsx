@@ -64,7 +64,7 @@ export function Navbar() {
             <LogoMark className="h-11 w-11 shrink-0" />
             <div className="leading-tight">
               <div className="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
-                Pet Safety Training
+                Pets Safety Training
               </div>
               <div className="mt-0.5 hidden text-[11px] font-medium text-ink-mute sm:block">
                 Safety-first care for dogs &amp; their people

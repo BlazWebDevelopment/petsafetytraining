@@ -28,7 +28,7 @@ npm run start
 
 ## Favicons / logo
 
-Favicons and the `favicon.ico` are generated from `public/logo.svg`:
+Favicons and `favicon.ico` (plus PNG/Android/Apple icons) are generated from `public/Logo.jpg`:
 
 ```bash
 npm run generate:icons

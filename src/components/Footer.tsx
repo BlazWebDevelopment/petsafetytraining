@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="font-display text-lg font-bold tracking-tight text-ink">
-              Pet Safety Training
+              Pets Safety Training
             </div>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
               Resources and adoption listings for people who want calm, safe,
@@ -84,7 +84,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-rule py-5 text-center text-[11px] font-medium text-ink-mute">
-          © {year} Pet Safety Training. Photos from public sources.
+          © {year} Pets Safety Training. Photos from public sources.
         </div>
       </Container>
     </footer>

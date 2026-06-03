@@ -4,7 +4,8 @@ import type { Article } from './types'
 const CUSTOM_COVER_SRC: Record<string, string> = {
   'mikolas-pygmy-hippo-neuralink': '/pigmi.jpg',
   'novas-journey-from-celebrity-companion-to-elite-safety-trainee': '/Nova2.png',
-  'loyal-dog-dies-trying-to-reach-owner-during-arrest-incident': '/swa6duvDhE.png',
+  'loyal-dog-dies-trying-to-reach-owner-during-arrest-incident':
+    '/1c1a5a40-2c13-449f-bd05-1c9b5e668a63_1920x1080.jpg',
 }
 
 export function getArticleCoverSrc(
@@ -26,7 +27,7 @@ export function getArticleCoverAlt(article: Article): string {
     return 'Nova, a Shiba Inu puppy'
   }
   if (article.slug === 'loyal-dog-dies-trying-to-reach-owner-during-arrest-incident') {
-    return 'Shadow, a German Shepherd, during the incident.'
+    return 'Shadow, a German Shepherd, with his favorite toy.'
   }
   return ''
 }

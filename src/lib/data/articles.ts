@@ -19,7 +19,7 @@ function a(input: Omit<Article, 'id' | 'slug'> & { id: string; slug?: string }):
 }
 
 export const ARTICLES: Article[] = [
-  a({
+ /* a({
     id: 'art_016',
     title: 'Loyal Dog Dies Trying to Reach Owner During Arrest Incident',
     excerpt:
@@ -41,7 +41,7 @@ export const ARTICLES: Article[] = [
       'A small memorial of flowers, candles, and dog treats appeared near the scene Wednesday morning. Among the notes left by mourners was one simple message:',
       '"Run free, Shadow. You never stopped loving your best friend."',
     ],
-  }),
+  }),*/
   a({
     id: 'art_001',
     slug: 'when-wealth-isnt-enough',

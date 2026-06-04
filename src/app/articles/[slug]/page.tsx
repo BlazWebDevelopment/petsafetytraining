@@ -25,7 +25,7 @@ export default async function Page({
   const isMikolasStory = article.slug === 'mikolas-pygmy-hippo-neuralink'
   const isNovaStory =
     article.slug === 'novas-journey-from-celebrity-companion-to-elite-safety-trainee'
-  const isShadowStory =
+  const isArthurJackieStory =
     article.slug === 'loyal-dog-dies-trying-to-reach-owner-during-arrest-incident'
 
   const dateLong = formatArticleDate(article.publishedAt).toUpperCase()
@@ -73,8 +73,8 @@ export default async function Page({
                 ? 'Mikolas, inside the Neuralink research facility.'
                 : isNovaStory
                   ? 'Nova, a young Shiba Inu.'
-                  : isShadowStory
-                    ? 'Shadow, Michael Turner\'s German Shepherd.'
+                  : isArthurJackieStory
+                    ? 'Arthur Jackie, Michael Turner\'s German Shepherd.'
                     : isRexStory
                       ? 'A reminder that wealth is not the same as care.'
                       : 'A photographic study.'}

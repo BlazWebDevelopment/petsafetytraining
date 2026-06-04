@@ -19,29 +19,29 @@ function a(input: Omit<Article, 'id' | 'slug'> & { id: string; slug?: string }):
 }
 
 export const ARTICLES: Article[] = [
- /* a({
+  a({
     id: 'art_016',
     title: 'Loyal Dog Dies Trying to Reach Owner During Arrest Incident',
     excerpt:
-      'A German Shepherd named Shadow lost his life trying to reach his owner during a chaotic police arrest Tuesday evening.',
+      'A German Shepherd named Arthur Jackie lost his life trying to reach his owner during a chaotic police arrest Tuesday evening.',
     author: 'Staff Reporter',
     publishedAt: '2026-06-03T10:00:00.000Z',
     coverTopic: 'dog',
     coverSeed: 2116,
     content: [
       'A tragic incident unfolded Tuesday evening when a man being arrested by police and his loyal dog both lost their lives during a chaotic confrontation.',
-      'According to witnesses, officers were attempting to arrest 34-year-old Michael Turner following reports of a disturbance in a residential neighborhood. As officers placed Turner in custody, his German Shepherd, Shadow, became distressed and repeatedly tried to reach its owner.',
-      'Witnesses described Shadow as barking loudly and pulling against a nearby fence before breaking free and running toward Turner. Officers reportedly attempted to stop the dog as it rushed toward the scene. During the confusion that followed, both Turner and Shadow suffered fatal injuries.',
-      'Neighbors said Shadow had been Michael\'s constant companion for nearly seven years.',
-      '"That dog loved him more than anything," said one resident. "All Shadow wanted was to get back to his owner. He didn\'t understand what was happening."',
-      'Several witnesses became emotional while describing the dog\'s final moments. According to reports, Shadow continued trying to reach Turner even after being injured.',
+      'According to witnesses, officers were attempting to arrest 34-year-old Michael Turner following reports of a disturbance in a residential neighborhood. As officers placed Turner in custody, his German Shepherd, Arthur Jackie, became distressed and repeatedly tried to reach his owner.',
+      'Witnesses described Arthur Jackie as barking loudly and pulling against a nearby fence before breaking free and running toward Turner. Officers reportedly attempted to stop the dog as he rushed toward the scene. During the confusion that followed, both Turner and Arthur Jackie suffered fatal injuries.',
+      'Neighbors said Arthur Jackie had been Michael\'s constant companion for nearly seven years.',
+      '"That dog loved him more than anything," said one resident. "All Arthur Jackie wanted was to get back to his owner. He didn\'t understand what was happening."',
+      'Several witnesses became emotional while describing the dog\'s final moments. According to reports, Arthur Jackie continued trying to reach Turner even after being injured.',
       'Animal welfare groups have expressed sadness over the incident, calling it a heartbreaking reminder of the powerful bond between pets and their owners.',
-      '"Dogs are incredibly loyal animals," said a spokesperson for a local rescue organization. "They often act out of love and protection without understanding danger. This story is devastating because a dog lost its life simply trying to stay with the person it cared about."',
+      '"Dogs are incredibly loyal animals," said a spokesperson for a local rescue organization. "They often act out of love and protection without understanding danger. This story is devastating because a dog lost his life simply trying to stay with the person he cared about."',
       'Authorities have launched an investigation into the circumstances surrounding the event. Officials have not yet released additional details pending review.',
       'A small memorial of flowers, candles, and dog treats appeared near the scene Wednesday morning. Among the notes left by mourners was one simple message:',
-      '"Run free, Shadow. You never stopped loving your best friend."',
+      '"Run free, Arthur Jackie. You never stopped loving your best friend."',
     ],
-  }),*/
+  }),
   a({
     id: 'art_001',
     slug: 'when-wealth-isnt-enough',

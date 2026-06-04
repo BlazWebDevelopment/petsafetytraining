@@ -27,7 +27,7 @@ export function getArticleCoverAlt(article: Article): string {
     return 'Nova, a Shiba Inu puppy'
   }
   if (article.slug === 'loyal-dog-dies-trying-to-reach-owner-during-arrest-incident') {
-    return 'Arthur Jackie, a German Shepherd, with his favorite toy.'
+    return 'Jackie, a German Shepherd, with his favorite toy.'
   }
   return ''
 }

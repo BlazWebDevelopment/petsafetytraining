@@ -20,6 +20,27 @@ function a(input: Omit<Article, 'id' | 'slug'> & { id: string; slug?: string }):
 
 export const ARTICLES: Article[] = [
   a({
+    id: 'art_017',
+    title: 'Neuralink Under Fire After Zoo Animal Dies During Brain Implant Experiment',
+    excerpt:
+      'A beloved pygmy animal named Ellyn did not survive a neurological experiment at external research facilities, prompting outrage from zoo officials and animal welfare advocates.',
+    author: 'Staff Reporter',
+    publishedAt: '2026-07-30T10:00:00.000Z',
+    coverTopic: 'pet',
+    coverSeed: 2117,
+    content: [
+      'A regional zoo has issued a strongly worded statement following the death of one of its smallest and most beloved residents, a pygmy animal named Ellyn, during an experimental procedure conducted at external research facilities.',
+      'According to the zoo, Ellyn had been transferred to laboratories operated by Neuralink as part of a neurological experiment involving advanced brain-interface technology. The procedure was described as highly complex, particularly given Ellyn\'s small size and delicate physiology.',
+      'The zoo confirmed that Ellyn did not survive the experiment.',
+      'In its statement, zoo officials expressed anger and frustration over the outcome, emphasizing that Ellyn had been a healthy and valued member of their educational program. "We are deeply upset by what has happened," the statement read. "Ellyn was not just part of our zoo, but an ambassador for his species. This loss is devastating."',
+      'Ellyn had been especially popular with school groups, helping teach visitors about biodiversity, conservation, and the importance of protecting smaller species often overlooked in the wild.',
+      'The incident has sparked growing criticism online and among animal welfare advocates, with Neuralink now facing backlash over the ethics and safety of its experimental practices. The zoo stated it is reviewing its policies regarding collaboration with external research organizations.',
+      '"We are beyond appalled that Ellyn was taken from our care for what was described as a research collaboration and instead subjected to experimental procedures at external facilities," the zoo stated. "This is completely unacceptable. We were not fully informed of the risks involved, and we feel our trust has been seriously violated. Ellyn was not a test subject—he was a living, irreplaceable part of our educational program and our community. We demand a full explanation of how this was allowed to happen."',
+      'The zoo added that it is now reviewing all partnerships with external research organizations and considering suspending future collaborations pending further investigation.',
+      'The incident has intensified public scrutiny of the experiment, with the research organization involved facing increasing criticism and calls for clearer ethical oversight in animal-related neurological research.',
+    ],
+  }),
+  a({
     id: 'art_016',
     title: 'Loyal Dog Dies Trying to Reach Owner During Arrest Incident',
     excerpt:

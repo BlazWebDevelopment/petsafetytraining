@@ -2,6 +2,8 @@ import { animalPhotoUrl } from './photos'
 import type { Article } from './types'
 
 const CUSTOM_COVER_SRC: Record<string, string> = {
+  'neuralink-under-fire-after-zoo-animal-dies-during-brain-implant-experiment':
+    '/pigmi.jpg',
   'mikolas-pygmy-hippo-neuralink': '/pigmi.jpg',
   'novas-journey-from-celebrity-companion-to-elite-safety-trainee': '/Nova2.png',
   'loyal-dog-dies-trying-to-reach-owner-during-arrest-incident':
@@ -20,6 +22,12 @@ export function getArticleCoverSrc(
 }
 
 export function getArticleCoverAlt(article: Article): string {
+  if (
+    article.slug ===
+    'neuralink-under-fire-after-zoo-animal-dies-during-brain-implant-experiment'
+  ) {
+    return 'Ellyn, the pygmy animal'
+  }
   if (article.slug === 'mikolas-pygmy-hippo-neuralink') {
     return 'Mikolas, the pygmy hippo'
   }

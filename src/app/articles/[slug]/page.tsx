@@ -27,6 +27,9 @@ export default async function Page({
     article.slug === 'novas-journey-from-celebrity-companion-to-elite-safety-trainee'
   const isJackieStory =
     article.slug === 'loyal-dog-dies-trying-to-reach-owner-during-arrest-incident'
+  const isEllynStory =
+    article.slug ===
+    'neuralink-under-fire-after-zoo-animal-dies-during-brain-implant-experiment'
 
   const dateLong = formatArticleDate(article.publishedAt).toUpperCase()
 
@@ -69,7 +72,9 @@ export default async function Page({
               />
             </div>
             <figcaption className="mt-2 text-center text-[11px] font-semibold uppercase tracking-editorial text-ink-mute">
-              {isMikolasStory
+              {isEllynStory
+                ? 'Ellyn, a beloved pygmy animal and zoo ambassador.'
+                : isMikolasStory
                 ? 'Mikolas, inside the Neuralink research facility.'
                 : isNovaStory
                   ? 'Nova, a young Shiba Inu.'

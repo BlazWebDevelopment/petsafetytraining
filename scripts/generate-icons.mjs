@@ -3,18 +3,18 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 
 const ROOT = process.cwd()
-const SOURCE = path.join(ROOT, 'public', 'Logo.jpg')
+const SOURCE = path.join(ROOT, 'public', 'logo.svg')
 const OUT_DIR = path.join(ROOT, 'public')
 
 const configuration = {
   path: '/',
-  appName: 'Pets Safety Training',
-  appShortName: 'Pets Safety',
+  appName: 'もふもふ日和。',
+  appShortName: 'もふもふ日和',
   appDescription:
-    'Professional pet safety training — safer pets, better homes.',
-  developerName: 'Pets Safety Training',
-  background: '#f6f4ef',
-  theme_color: '#f6f4ef',
+    '元保護犬と元保護猫の4匹と暮らす、ほんわかした毎日の記録です。',
+  developerName: 'もふもふ日和。',
+  background: '#fff7f7',
+  theme_color: '#fff7f7',
   icons: {
     favicons: true,
     android: true,

@@ -1,0 +1,9 @@
+index -> HTTP 200
+thumb-frame occurrences (article photos): 20
+rounded-full occurrences (sidebar portraits): 18
+placeholder frames remaining: 0
+
+55857704 -> HTTP 200
+  uses kitten-yuna-2.png: true
+  still uses indoor-pets:  false
+  image serves: HTTP 200 image/png 1382 KB

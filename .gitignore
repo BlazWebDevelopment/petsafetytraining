@@ -50,6 +50,13 @@ lerna-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# local-only reference imagery (third-party photos used for design comps).
+# Must be replaced with owned or licensed images before any deploy.
+/public/photos/
+/public/yuna.png
+/src/*.png
+/src/*.jpg
+
 # editor / OS
 .vscode/*
 !.vscode/extensions.json

@@ -1,14 +1,14 @@
 {
-  "name": "Pets Safety Training",
-  "short_name": "Pets Safety",
-  "description": "Professional pet safety training — safer pets, better homes.",
+  "name": "もふもふ日和。",
+  "short_name": "もふもふ日和",
+  "description": "元保護犬と元保護猫の4匹と暮らす、ほんわかした毎日の記録です。",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",
   "orientation": "any",
   "start_url": "/?homescreen=1",
-  "background_color": "#f6f4ef",
-  "theme_color": "#f6f4ef",
+  "background_color": "#fff7f7",
+  "theme_color": "#fff7f7",
   "icons": [
     {
       "src": "/android-chrome-36x36.png",

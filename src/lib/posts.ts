@@ -30,7 +30,7 @@ const cat = (id: string): Category =>
 export const POSTS: Post[] = [
   {
     id: '55870126',
-    title: '新しい家族が増えました。オラスと申します',
+    title: '新しい家族が増えました。オラスと申します (Orasu)',
     date: '2026-08-06 22:00:00',
     categories: [cat('525821'), cat('315740')],
     image: '/photos/orasu-1.jpg',

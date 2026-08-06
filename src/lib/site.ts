@@ -19,12 +19,6 @@ export type FamilyMember = {
 
 export const FAMILY: FamilyMember[] = [
   {
-    name: 'ユナ♀',
-    seed: 'yuna',
-    image: '/yuna.png',
-    text: '知り合いのお宅の物置の裏で、段ボールにくるまって鳴いていたところを保護されました。うちに来た日は目のまわりが目やにでかたまり、毛はぱさぱさ。それでもタオルの上に置くと、小さな前足をきちんとそろえてこちらを見上げていました。今は毎日お薬と目のお手入れの日々です。２０２６年８月、家族になりました。いちばん小さくて、いちばん声が大きい子です。',
-  },
-  {
     name: 'もなか♀',
     seed: 'monaka',
     image: '/photos/monaka.png',

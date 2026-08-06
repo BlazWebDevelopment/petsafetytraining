@@ -153,6 +153,16 @@ export default async function Page({
           ))}
         </div>
 
+        {post.image2 ? (
+          <Photo
+            seed={`${post.id}-2`}
+            src={post.image2}
+            alt={post.title}
+            ratio="aspect-[3/2]"
+            className="my-9"
+          />
+        ) : null}
+
         {second.length ? (
           <div className="article-body mt-6">
             {second.map((p, i) => (
